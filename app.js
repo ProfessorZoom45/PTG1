@@ -3,7 +3,7 @@ import { ROLES, computeRoleScore, pickPrimaryRole, pickSecondaryRole } from './r
 const CONFIG = {
   recipientEmail: 'changethewrld@outlook.com',
   // Optional: set this to a real endpoint (Google Apps Script / Cloudflare Worker / Netlify Function).
-  submitEndpoint: '',
+  submitEndpoint: 'https://ptg-role-quiz-api.YOURNAME.workers.dev/submit',
   projectTag: 'PTG-ROLE-QUIZ-v1'
 };
 
@@ -211,7 +211,11 @@ btnSubmit.addEventListener('click', async () => {
   try {
     const res = await fetch(CONFIG.submitEndpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { headers: {
+  'Content-Type': 'application/json',
+  'X-PTG-Secret': 'PTG_SECRET_9x7a_QUIZ_LOCK_2026'
+},
+ },
       body: JSON.stringify(lastPayload)
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
