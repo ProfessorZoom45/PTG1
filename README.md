@@ -1,27 +1,52 @@
-# PTG Survey Web App (Static)
+# PTG Role Quiz (GitHub Pages)
 
-This site is built to run on **GitHub Pages** (or any static host).
-No accounts required for responders.
+A 9-question quiz that assigns a **PTG role** based on answers:
 
-## What works without a backend
-- Public survey (low typing) ✅
-- Internal 119 survey (click-first) ✅
-- Saves responses **locally on the device** ✅
-- Download response files ✅
-- Email response via **mailto:** (opens user’s email app) ✅
+- CEO 👑
+- General Manager (GM) 🧭
+- Operations Lead (OPS) 🛠️
+- Community & Events Lead (COMM) 🎉
+- Tech & Media Lead (TECH) 🎥
+- Cashier / Front Desk (CASH) 🧾
+- Member 🕹️
 
-## Why email is mailto
-Static hosting cannot send email automatically without a server/API key.
-This build generates a prefilled email to:
-changethewrld@outlook.com
+## What works on GitHub Pages (Phase 0)
+Because GitHub Pages is **static hosting**, the quiz supports 3 reliable submission methods:
 
-## GitHub Pages Quick Deploy
-1. Create a repo (example: `ptg-surveys`)
-2. Upload `index.html`, `styles.css`, `app.js`
-3. Repo Settings → Pages → Deploy from `main` branch, root
-4. Your link will look like:
-   https://YOUR_USERNAME.github.io/ptg-surveys/
+1. **Email** (mailto:) to `changethewrld@outlook.com`
+2. **Download JSON** (user downloads a `.json` file)
+3. **Copy text** (clipboard)
 
-## QR Code
-Once you have your final Pages URL, generate a QR code from any QR generator
-(or add one later; this project intentionally has no external dependencies).
+> Optional: A real “Submit to database” button is included, but it only works if you set a real endpoint.
+
+## Deploy (GitHub Pages)
+1. Create a repo (example: `PTG_ROLE_QUIZ`)
+2. Upload these files into the repo root:
+   - `index.html`
+   - `style.css`
+   - `app.js`
+   - `roles.js`
+   - `README.md`
+3. In GitHub: **Settings → Pages**
+4. Source: **Deploy from a branch**
+5. Branch: `main` / folder: `/ (root)`
+6. Save. Your quiz link becomes your hosted URL.
+
+## Optional backend (when you want real submissions)
+If you want “Submit” to post data to a server:
+
+- Create a lightweight endpoint (Cloudflare Worker / Netlify Function / Google Apps Script web app)
+- Then open `app.js` and set:
+
+```js
+submitEndpoint: 'https://YOUR-ENDPOINT-HERE'
+```
+
+The endpoint should accept `POST` JSON.
+
+## PS5 Mode
+Tap **PS5 Mode** in the top bar to enable extra-large UI for TV browsing.
+
+---
+
+Built for **Perfect Timing Gaming** 🎯
