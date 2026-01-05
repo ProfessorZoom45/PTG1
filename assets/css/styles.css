@@ -1,0 +1,66 @@
+/* PTG Shared Styles — styles.css
+   Purpose: consistent fonts, spacing, readable UX, mobile + PS5 friendly.
+*/
+
+:root{
+  --ptg-egg: #f3efe6;
+  --ptg-black: #111111;
+  --ptg-gold: #d4af37;
+  --ptg-red: #c1121f;
+  --ptg-green: #2e7d32;
+  --ptg-white: #ffffff;
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--ptg-egg);
+  color: var(--ptg-black);
+  line-height: 1.5;
+}
+
+/* Links */
+a{ color: var(--ptg-black); text-decoration: underline; }
+a:hover{ text-decoration: none; }
+
+/* Images always fit */
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+/* Buttons baseline */
+button{
+  font-family: inherit;
+}
+
+/* Utility */
+.ptg-egg{ background: var(--ptg-egg); }
+.ptg-black{ color: var(--ptg-black); }
+.ptg-gold{ color: var(--ptg-gold); }
+.ptg-red{ color: var(--ptg-red); }
+.ptg-green{ color: var(--ptg-green); }
+
+/* Big readable defaults (helps PS5 + iPhone) */
+h1, h2, h3{
+  line-height: 1.25;
+}
+
+p{
+  font-size: 16px;
+}
+
+/* Optional “PS5 mode” hook if other pages add it */
+body.ps5{
+  font-size: 22px;
+}
+
+body.ps5 p{ font-size: 22px; }
+body.ps5 h1{ font-size: 34px; }
+body.ps5 h2{ font-size: 28px; }
