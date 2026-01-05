@@ -10,23 +10,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
+  <!-- ✅ UPDATED PATH (root index.html -> assets/...) -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
+
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="top">
     <div class="brand">
+      <!-- OPTIONAL: swap this div for an image logo if you want -->
+      <!-- <img src="assets/img/ptg_logo.png" alt="Perfect Timing Gaming logo" class="logoImg"> -->
       <div class="logo" aria-hidden="true">PTG</div>
+
       <div class="brandText">
         <div class="title">Perfect Timing Gaming</div>
-        <div class="subtitle">9‑Question Role Quiz • Get your best PTG lane 🎯</div>
+        <div class="subtitle">9-Question Role Quiz • Get your best PTG lane 🎯</div>
       </div>
     </div>
+
     <div class="controls" aria-label="Display controls">
-      <button id="ps5Toggle" class="btn miniBtn" type="button" aria-pressed="false" title="Extra large text for PS5 / TV">PS5 Mode</button>
+      <button id="ps5Toggle" class="btn miniBtn" type="button" aria-pressed="false" title="Extra large text for PS5 / TV">
+        PS5 Mode
+      </button>
     </div>
-    <div class="badgeRow" aria-label="House Rules" title="PTG House Rules"> 
+
+    <div class="badgeRow" aria-label="House Rules" title="PTG House Rules">
       <span class="badge">🚫 No alcohol</span>
       <span class="badge">🚫 No gambling</span>
       <span class="badge">🚫 No soliciting</span>
@@ -61,7 +70,7 @@
         <label><input type="radio" name="q2" value="b"> I like running the day and keeping the whole floor smooth.</label>
         <label><input type="radio" name="q2" value="c"> I like events, people, and building a strong community vibe.</label>
         <label><input type="radio" name="q2" value="d"> I like tech, systems, and making things work perfectly.</label>
-        <label><input type="radio" name="q2" value="e"> I like helping customers and keeping check‑in/check‑out clean.</label>
+        <label><input type="radio" name="q2" value="e"> I like helping customers and keeping check-in/check-out clean.</label>
         <label><input type="radio" name="q2" value="f"> I just want a safe, fun place to be and support the culture.</label>
       </fieldset>
 
@@ -78,18 +87,18 @@
 
       <!-- Q4 -->
       <fieldset class="q">
-        <legend><span class="qNum">Q4</span> Your “extra effort” (PTG‑xx) looks like…</legend>
+        <legend><span class="qNum">Q4</span> Your “extra effort” (PTG-xx) looks like…</legend>
         <label><input type="radio" name="q4" value="a" required> Cleaning, organizing, and fixing what’s broken.</label>
         <label><input type="radio" name="q4" value="b"> Hosting, welcoming, and making people feel included.</label>
         <label><input type="radio" name="q4" value="c"> Helping with tech, setups, and teaching people.</label>
-        <label><input type="radio" name="q4" value="d"> Helping at the front: check‑ins, questions, and fairness.</label>
+        <label><input type="radio" name="q4" value="d"> Helping at the front: check-ins, questions, and fairness.</label>
         <label><input type="radio" name="q4" value="e"> Taking responsibility when it matters (even if it’s hard).</label>
         <label><input type="radio" name="q4" value="f"> Showing up consistently and following the rules.</label>
       </fieldset>
 
       <!-- Q5 -->
       <fieldset class="q">
-        <legend><span class="qNum">Q5</span> What makes a “10/10 visit” (PTG‑qx) most?</legend>
+        <legend><span class="qNum">Q5</span> What makes a “10/10 visit” (PTG-qx) most?</legend>
         <label><input type="radio" name="q5" value="a" required> Friendly staff + quick help when I need it.</label>
         <label><input type="radio" name="q5" value="b"> Clean space + smooth systems (no chaos, no confusion).</label>
         <label><input type="radio" name="q5" value="c"> A strong vibe with events and people who respect each other.</label>
@@ -99,9 +108,9 @@
 
       <!-- Q6 -->
       <fieldset class="q">
-        <legend><span class="qNum">Q6</span> If PTG is picking games (PTG‑g), what matters most?</legend>
+        <legend><span class="qNum">Q6</span> If PTG is picking games (PTG-g), what matters most?</legend>
         <label><input type="radio" name="q6" value="a" required> Big crowd games that are easy to jump into.</label>
-        <label><input type="radio" name="q6" value="b"> Games that build community (tournaments, co‑op, groups).</label>
+        <label><input type="radio" name="q6" value="b"> Games that build community (tournaments, co-op, groups).</label>
         <label><input type="radio" name="q6" value="c"> A clean library plan (updates, accounts, rules, fairness).</label>
         <label><input type="radio" name="q6" value="d"> Whatever people want most, even if it changes.</label>
         <label><input type="radio" name="q6" value="e"> A balanced plan that matches PTG values and the mission.</label>
@@ -109,7 +118,7 @@
 
       <!-- Q7 -->
       <fieldset class="q">
-        <legend><span class="qNum">Q7</span> How strict should rules be (PTG‑d)?</legend>
+        <legend><span class="qNum">Q7</span> How strict should rules be (PTG-d)?</legend>
         <label><input type="radio" name="q7" value="a" required> Very strict and consistent. Same rule for everyone.</label>
         <label><input type="radio" name="q7" value="b"> Strict but fair. Explain first, then enforce.</label>
         <label><input type="radio" name="q7" value="c"> Chill, but step in when someone crosses the line.</label>
@@ -119,7 +128,7 @@
 
       <!-- Q8 -->
       <fieldset class="q">
-        <legend><span class="qNum">Q8</span> Which community move matters most (PTG‑c)?</legend>
+        <legend><span class="qNum">Q8</span> Which community move matters most (PTG-c)?</legend>
         <label><input type="radio" name="q8" value="a" required> Events that bring people together weekly.</label>
         <label><input type="radio" name="q8" value="b"> Leaders who keep the culture respectful and safe.</label>
         <label><input type="radio" name="q8" value="c"> Tech workshops (phone help, basics, setup, safety).</label>
@@ -174,6 +183,7 @@
         <button id="btnDownload" class="btn">Download JSON</button>
         <button id="btnSubmit" class="btn">Submit (endpoint)</button>
       </div>
+
       <div id="submitStatus" class="status" data-kind="info"></div>
     </section>
 
@@ -185,6 +195,7 @@
     </footer>
   </main>
 
-  <script type="module" src="app.js"></script>
+  <!-- ✅ UPDATED PATH (root index.html -> assets/...) -->
+  <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
