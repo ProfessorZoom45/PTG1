@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfect Timing Gaming • Home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logoBox" aria-hidden="true">PTG</div>
+      <div>
+        <div class="brandTitle">Perfect Timing Gaming</div>
+        <div class="brandSub">Community-first gaming lounge + tech help + events 🎮✨</div>
+      </div>
+    </div>
+
+    <div class="topActions" aria-label="Site controls">
+      <button id="ps5Toggle" class="btn mini" type="button" aria-pressed="false" title="Extra large text for PS5 / TV">PS5 Mode</button>
+      <button id="musicToggle" class="btn mini" type="button" aria-pressed="false" title="Play/Pause music">▶️ Music</button>
+      <button id="muteToggle" class="btn mini" type="button" aria-pressed="true" title="Mute/Unmute music">🔇 Muted</button>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+
+    <section class="hero card">
+      <div class="heroLeft">
+        <h1 class="pixel">PTG Home</h1>
+        <p class="lead">
+          A safe, fair, fun place to play — plus tech support, tournaments, and community growth.
+          Built with <strong>rules + respect</strong> so everybody can level up.
+        </p>
+
+        <div class="badgeRow" aria-label="House Rules">
+          <span class="badge">🚫 No alcohol</span>
+          <span class="badge">🚫 No gambling</span>
+          <span class="badge">🚫 No soliciting</span>
+          <span class="badge">🚫 No loitering</span>
+        </div>
+
+        <div class="ctaRow">
+          <a class="btn primary" href="./signin.html">Sign In / Membership</a>
+          <a class="btn" href="./apps/role-quiz/">Take the Role Quiz</a>
+        </div>
+
+        <div class="quickInfo">
+          <div class="infoBlock">
+            <div class="infoLabel">📍 Location</div>
+            <div class="infoValue">Buffalo, NY (14208 area) — exact address TBD</div>
+          </div>
+          <div class="infoBlock">
+            <div class="infoLabel">🕒 Hours</div>
+            <div class="infoValue">TBD (survey-driven) — school-night curfew options supported</div>
+          </div>
+          <div class="infoBlock">
+            <div class="infoLabel">📧 Contact</div>
+            <div class="infoValue"><a href="mailto:changethewrld@outlook.com">changethewrld@outlook.com</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="heroRight" aria-label="PTG vibe images">
+        <div class="imgGrid">
+          <figure class="imgCard">
+            <img loading="lazy" src="./assets/img/local_lounge_row.jpeg" alt="Local gaming lounge with rows of PCs and players" />
+            <figcaption>Local lounge setup — rows of PCs + a focused vibe.</figcaption>
+          </figure>
+          <figure class="imgCard">
+            <img loading="lazy" src="./assets/img/gaming_bar_lounge.jpeg" alt="Gaming bar or café environment with PCs and players" />
+            <figcaption>Gaming café style — play + watch energy.</figcaption>
+          </figure>
+          <figure class="imgCard">
+            <img loading="lazy" src="./assets/img/lan_event_overview.jpeg" alt="LAN event with many PCs and a big crowd" />
+            <figcaption>Community LAN event — big room, big dreams.</figcaption>
+          </figure>
+          <figure class="imgCard">
+            <img loading="lazy" src="./assets/img/old_school_lan.jpeg" alt="Old school LAN lounge setup" />
+            <figcaption>Old school LAN vibes — classic community roots.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="pixel">Quick links</h2>
+      <p class="muted">Everything PTG builds follows the same “recipe” so it stays organized and easy to grow.</p>
+
+      <div class="linkGrid" role="list">
+        <a class="linkCard" role="listitem" href="./lounge.html">
+          <div class="linkTitle">Lounge</div>
+          <div class="linkDesc">Zones, equipment, vibe, rules preview.</div>
+        </a>
+        <a class="linkCard" role="listitem" href="./services.html">
+          <div class="linkTitle">Services</div>
+          <div class="linkDesc">Tech help, setup support, coaching, repair boundaries.</div>
+        </a>
+        <a class="linkCard" role="listitem" href="./surveys/">
+          <div class="linkTitle">Surveys</div>
+          <div class="linkDesc">Market research + definitions + feedback loops.</div>
+        </a>
+        <a class="linkCard" role="listitem" href="./apps/">
+          <div class="linkTitle">Apps</div>
+          <div class="linkDesc">Interactive tools (Role Quiz, table app, etc.).</div>
+        </a>
+        <a class="linkCard" role="listitem" href="./apps/role-quiz/">
+          <div class="linkTitle">Role Quiz</div>
+          <div class="linkDesc">9 questions → best PTG lane recommendation.</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="pixel">The PTG build recipe</h2>
+      <ol class="recipe">
+        <li><strong>Pick location</strong>: website pages in root; webapps inside <code>/apps/</code>.</li>
+        <li><strong>Clean naming</strong>: <code>index.html</code>, <code>lounge.html</code>, <code>services.html</code>; webapps like <code>apps/role-quiz/</code>.</li>
+        <li><strong>Shared assets</strong>: <code>assets/css/styles.css</code>, images in <code>assets/img/</code>, audio in <code>assets/audio/</code>.</li>
+        <li><strong>Link from Home</strong>: every new page gets a button here so nobody gets lost.</li>
+        <li><strong>Test live</strong>: GitHub Pages base URL + file path.</li>
+      </ol>
+      <p class="small muted">
+        Heads up: browsers often block autoplay. That’s why music starts muted — tap the Music button when you’re ready.
+      </p>
+    </section>
+
+    <footer class="foot">
+      <div class="footRow">
+        <span class="mini">Theme: Eggshell (light) • Black (dark) • Gold/Green accents</span>
+        <span class="mini">PTG • Built for mobile + PS5 browser</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Music (start muted; user taps to play) -->
+  <audio id="bgMusic" preload="none" loop muted>
+    <source src="./assets/audio/music0.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const root = document.documentElement;
+    const ps5Toggle = document.getElementById('ps5Toggle');
+    const musicToggle = document.getElementById('musicToggle');
+    const muteToggle = document.getElementById('muteToggle');
+    const audio = document.getElementById('bgMusic');
+
+    // PS5 Mode
+    ps5Toggle.addEventListener('click', () => {
+      const on = root.classList.toggle('ps5');
+      ps5Toggle.setAttribute('aria-pressed', String(on));
+      ps5Toggle.textContent = on ? 'PS5 Mode: ON' : 'PS5 Mode';
+    });
+
+    // Mute toggle
+    const syncMuteLabel = () => {
+      const muted = audio.muted;
+      muteToggle.setAttribute('aria-pressed', String(muted));
+      muteToggle.textContent = muted ? '🔇 Muted' : '🔊 Sound';
+    };
+
+    muteToggle.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      syncMuteLabel();
+    });
+
+    // Music play/pause
+    const syncMusicLabel = () => {
+      const playing = !audio.paused;
+      musicToggle.setAttribute('aria-pressed', String(playing));
+      musicToggle.textContent = playing ? '⏸️ Music' : '▶️ Music';
+    };
+
+    const tryFallbackMusicPath = () => {
+      // If you keep music files in repo root instead of assets/audio
+      if (audio.currentSrc && audio.currentSrc.includes('/assets/audio/')) {
+        audio.querySelector('source').src = './music0.mp3';
+        audio.load();
+        return true;
+      }
+      return false;
+    };
+
+    musicToggle.addEventListener('click', async () => {
+      // Toggle behavior
+      if (!audio.paused) {
+        audio.pause();
+        syncMusicLabel();
+        return;
+      }
+
+      try {
+        await audio.play();
+        syncMusicLabel();
+      } catch (err) {
+        // Missing file OR autoplay restriction
+        const didFallback = tryFallbackMusicPath();
+        if (didFallback) {
+          try {
+            await audio.play();
+            syncMusicLabel();
+            return;
+          } catch (e) {
+            alert('Music could not start. Put music0.mp3 in assets/audio/ (recommended) or keep it in the repo root.');
+            return;
+          }
+        }
+        alert('Music blocked by your browser. Tap again, or unmute first.');
+      }
+    });
+
+    // Initial labels
+    syncMuteLabel();
+    syncMusicLabel();
+  </script>
+</body>
+</html>
