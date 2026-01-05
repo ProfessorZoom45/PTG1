@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfect Timing Gaming • Role Quiz</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- ✅ Shared PTG site stylesheet (1-repo subfolder-safe) -->
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+
+  <!-- ✅ Page-specific styling (kept inside file so it works even if styles.css changes) -->
+  <style>
+    :root{
+      --egg: #f3efe6;       /* eggshell */
+      --black: #111111;
+      --gold: #d4af37;
+      --red: #c1121f;
+      --green: #2e7d32;
+
+      --card: rgba(255,255,255,0.75);
+      --border: rgba(17,17,17,0.16);
+      --shadow: 0 10px 30px rgba(0,0,0,0.10);
+
+      --radius: 18px;
+      --pad: 18px;
+      --max: 980px;
+    }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--egg);
+      color: var(--black);
+      line-height: 1.5;
+    }
+
+    .pixel{ font-family: "Press Start 2P", monospace; letter-spacing: .5px; }
+
+    .skip{
+      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip:focus{
+      position:fixed; left:16px; top:16px; width:auto; height:auto;
+      background:#fff; color:#000; padding:10px 12px; border-radius:10px;
+      border:2px solid var(--black);
+      z-index:9999;
+    }
+
+    .top{
+      padding: 18px 16px 14px;
+      border-bottom: 2px solid rgba(0,0,0,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(243,239,230,0.65));
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(6px);
+    }
+
+    .topInner{
+      max-width: var(--max);
+      margin: 0 auto;
+      display:flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      min-width: 260px;
+    }
+
+    .logoBox{
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: #111;
+      display:grid;
+      place-items:center;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .logoBox img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #111;
+    }
+
+    .brandText .title{
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: .2px;
+    }
+    .brandText .subtitle{
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    .navRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      appearance:none;
+      border: 2px solid rgba(17,17,17,0.18);
+      background: #fff;
+      color: #111;
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(0,0,0,.08);
+      transition: transform .08s ease, border-color .2s ease;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      border-color: rgba(212,175,55,0.65);
+      background: linear-gradient(180deg, #fff, rgba(212,175,55,0.10));
+    }
+    .btn.mini{ padding: 9px 10px; font-weight:800; }
+    .btn.link{
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .badgeRow{
+      max-width: var(--max);
+      margin: 12px auto 0;
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 0 2px;
+    }
+    .badge{
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 2px solid rgba(17,17,17,.10);
+      background: rgba(255,255,255,.75);
+    }
+    .badge.gold{ border-color: rgba(212,175,55,.55); color: var(--black); }
+    .badge.red{ border-color: rgba(193,18,31,.55); color: var(--red); }
+    .badge.green{ border-color: rgba(46,125,50,.55); color: var(--green); }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 16px 30px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--pad);
+      box-shadow: var(--shadow);
+      margin: 14px 0;
+    }
+
+    .intro h1{
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.35;
+      color: var(--black);
+    }
+
+    .tip{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(46,125,50,0.10);
+      border: 2px solid rgba(46,125,50,0.25);
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    form h2{
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: var(--black);
+    }
+
+    fieldset.q{
+      border: 2px solid rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.6);
+      border-radius: 16px;
+      padding: 14px;
+      margin: 12px 0;
+    }
+    legend{
+      font-weight: 900;
+      padding: 0 8px;
+    }
+    .qNum{
+      font-weight: 900;
+      color: var(--red);
+      margin-right: 8px;
+    }
+
+    label{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 10px 10px;
+      border-radius: 14px;
+      margin: 6px 0;
+      cursor: pointer;
+      border: 2px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.55);
+    }
+    label:hover{
+      border-color: rgba(212,175,55,0.45);
+      background: rgba(255,255,255,0.75);
+    }
+    input[type="radio"]{ transform: scale(1.25); margin-top: 2px; }
+    input[type="text"]{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 2px solid rgba(0,0,0,0.15);
+      background: rgba(255,255,255,0.9);
+      font-size: 16px;
+      outline: none;
+    }
+    input[type="text"]:focus{
+      border-color: rgba(212,175,55,0.75);
+      box-shadow: 0 0 0 4px rgba(212,175,55,0.18);
+    }
+
+    .hint{
+      font-size: 13px;
+      opacity: .9;
+      margin-top: 8px;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .smallNote{
+      margin-top: 10px;
+      font-size: 13px;
+      opacity: .95;
+      border-left: 5px solid rgba(212,175,55,0.65);
+      padding-left: 12px;
+    }
+
+    .hidden{ display:none; }
+
+    .resultMain{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .resultRole{
+      font-weight: 1000;
+      font-size: 28px;
+      letter-spacing: .8px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 2px solid rgba(212,175,55,0.55);
+      background: rgba(212,175,55,0.10);
+    }
+    .resultSubtitle{
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+
+    details.scores{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 2px solid rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.55);
+      padding: 10px 12px;
+    }
+    details summary{
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--black);
+    }
+
+    .status{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 2px solid rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.75);
+      font-weight: 800;
+    }
+
+    .foot{
+      opacity: .95;
+      text-align:center;
+      margin-top: 18px;
+      font-size: 12px;
+    }
+
+    /* ✅ PS5 mode */
+    body.ps5{
+      font-size: 22px;
+    }
+    body.ps5 .brandText .title{ font-size: 22px; }
+    body.ps5 .brandText .subtitle{ font-size: 16px; }
+    body.ps5 .badge{ font-size: 16px; padding: 10px 12px; }
+    body.ps5 .btn{ font-size: 20px; padding: 12px 14px; }
+    body.ps5 .resultRole{ font-size: 34px; }
+    body.ps5 input[type="text"]{ font-size: 22px; }
+    body.ps5 label{ font-size: 20px; }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <div class="topInner">
+      <div class="brand">
+        <div class="logoBox" aria-hidden="true">
+          <!-- ✅ Uses shared logo path -->
+          <img src="../../assets/img/ptg_logo.png" alt="PTG logo">
+        </div>
+        <div class="brandText">
+          <div class="title">Perfect Timing Gaming</div>
+          <div class="subtitle">9-Question Role Quiz • Find your PTG lane 🎯</div>
+        </div>
+      </div>
+
+      <div class="navRow" aria-label="Top navigation & controls">
+        <a class="btn link" href="../../index.html" title="Back to Home">🏠 Home</a>
+        <a class="btn link" href="../../lounge.html" title="PTG Lounge">🕹️ Lounge</a>
+        <a class="btn link" href="../../services.html" title="PTG Services">🛠️ Services</a>
+
+        <button id="ps5Toggle" class="btn mini" type="button" aria-pressed="false" title="Extra large text for PS5 / TV">
+          PS5 Mode
+        </button>
+
+        <button id="musicToggle" class="btn mini" type="button" aria-pressed="true" title="Toggle music (requires tap)">
+          🔇 Music Off
+        </button>
+      </div>
+    </div>
+
+    <div class="badgeRow" aria-label="House Rules">
+      <span class="badge red">🚫 No alcohol</span>
+      <span class="badge red">🚫 No gambling</span>
+      <span class="badge gold">🚫 No soliciting</span>
+      <span class="badge green">🚫 No loitering</span>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="card intro">
+      <h1 class="pixel">Pick your role</h1>
+      <p>
+        Answer 9 quick questions and we’ll recommend the best PTG match:
+        <strong>CEO</strong>, <strong>GM</strong>, <strong>OPS</strong>, <strong>COMM</strong>, <strong>TECH</strong>, <strong>CASH</strong>, or <strong>MEMBER</strong>.
+      </p>
+      <p class="tip">Tip: This quiz is mostly taps. No typing marathon. ✅</p>
+    </section>
+
+    <form id="quizForm" class="card" autocomplete="on">
+      <h2 class="pixel">The quiz</h2>
+
+      <!-- Q1 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q1</span> Your name + age (one line)</legend>
+        <input name="q1" type="text" inputmode="text" placeholder="Example: Jordan, 16" aria-label="Your name and age" required />
+        <div class="hint">Example format: <strong>“Maya, 14”</strong> or <strong>“Chris, 23”</strong></div>
+      </fieldset>
+
+      <!-- Q2 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q2</span> What sounds most like you?</legend>
+        <label><input type="radio" name="q2" value="a" required> I like making the big calls and protecting the mission.</label>
+        <label><input type="radio" name="q2" value="b"> I like running the day and keeping the whole floor smooth.</label>
+        <label><input type="radio" name="q2" value="c"> I like events, people, and building a strong community vibe.</label>
+        <label><input type="radio" name="q2" value="d"> I like tech, systems, and making things work perfectly.</label>
+        <label><input type="radio" name="q2" value="e"> I like helping customers and keeping check-in/check-out clean.</label>
+        <label><input type="radio" name="q2" value="f"> I just want a safe, fun place to be and support the culture.</label>
+      </fieldset>
+
+      <!-- Q3 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q3</span> If conflict pops off, you usually…</legend>
+        <label><input type="radio" name="q3" value="a" required> Step in, calm it down, and set the boundary fast.</label>
+        <label><input type="radio" name="q3" value="b"> Handle it politely and keep things moving without drama.</label>
+        <label><input type="radio" name="q3" value="c"> Fix the system so the problem doesn’t keep happening.</label>
+        <label><input type="radio" name="q3" value="d"> Reset the vibe and help people reconnect.</label>
+        <label><input type="radio" name="q3" value="e"> Troubleshoot the tech side (controllers, settings, accounts).</label>
+        <label><input type="radio" name="q3" value="f"> Avoid the middle and just want things peaceful.</label>
+      </fieldset>
+
+      <!-- Q4 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q4</span> Your “extra effort” (PTG-xx) looks like…</legend>
+        <label><input type="radio" name="q4" value="a" required> Cleaning, organizing, and fixing what’s broken.</label>
+        <label><input type="radio" name="q4" value="b"> Hosting, welcoming, and making people feel included.</label>
+        <label><input type="radio" name="q4" value="c"> Helping with tech, setups, and teaching people.</label>
+        <label><input type="radio" name="q4" value="d"> Helping at the front: check-ins, questions, and fairness.</label>
+        <label><input type="radio" name="q4" value="e"> Taking responsibility when it matters (even if it’s hard).</label>
+        <label><input type="radio" name="q4" value="f"> Showing up consistently and following the rules.</label>
+      </fieldset>
+
+      <!-- Q5 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q5</span> What makes a “10/10 visit” (PTG-qx) most?</legend>
+        <label><input type="radio" name="q5" value="a" required> Friendly staff + quick help when I need it.</label>
+        <label><input type="radio" name="q5" value="b"> Clean space + smooth systems (no chaos).</label>
+        <label><input type="radio" name="q5" value="c"> A strong vibe with events and respect.</label>
+        <label><input type="radio" name="q5" value="d"> Great game setup: controllers, updates, accounts.</label>
+        <label><input type="radio" name="q5" value="e"> Clear rules and fairness so everyone feels safe.</label>
+      </fieldset>
+
+      <!-- Q6 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q6</span> If PTG picks games (PTG-g), what matters most?</legend>
+        <label><input type="radio" name="q6" value="a" required> Big crowd games that are easy to jump into.</label>
+        <label><input type="radio" name="q6" value="b"> Games that build community (tournaments, co-op).</label>
+        <label><input type="radio" name="q6" value="c"> A clean library plan (updates, accounts, rules).</label>
+        <label><input type="radio" name="q6" value="d"> Whatever people want most, even if it changes.</label>
+        <label><input type="radio" name="q6" value="e"> A balanced plan that matches PTG values.</label>
+      </fieldset>
+
+      <!-- Q7 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q7</span> How strict should rules be (PTG-d)?</legend>
+        <label><input type="radio" name="q7" value="a" required> Very strict and consistent. Same rule for everyone.</label>
+        <label><input type="radio" name="q7" value="b"> Strict but fair. Explain first, then enforce.</label>
+        <label><input type="radio" name="q7" value="c"> Chill, but step in when someone crosses the line.</label>
+        <label><input type="radio" name="q7" value="d"> Mostly chill. I want the vibe to feel free.</label>
+        <label><input type="radio" name="q7" value="e"> Depends on the situation and age group.</label>
+      </fieldset>
+
+      <!-- Q8 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q8</span> Which community move matters most (PTG-c)?</legend>
+        <label><input type="radio" name="q8" value="a" required> Events that bring people together weekly.</label>
+        <label><input type="radio" name="q8" value="b"> Leaders who keep the culture respectful and safe.</label>
+        <label><input type="radio" name="q8" value="c"> Tech workshops (phone help, basics, setup, safety).</label>
+        <label><input type="radio" name="q8" value="d"> Customer service that treats everyone like family.</label>
+        <label><input type="radio" name="q8" value="e"> Operations that keep things consistent day after day.</label>
+        <label><input type="radio" name="q8" value="f"> A cool place to hang (with structure) and be part of it.</label>
+      </fieldset>
+
+      <!-- Q9 -->
+      <fieldset class="q">
+        <legend><span class="qNum">Q9</span> How do you like to lead or support?</legend>
+        <label><input type="radio" name="q9" value="a" required> Set vision and protect what PTG stands for.</label>
+        <label><input type="radio" name="q9" value="b"> Coordinate people and solve problems in real time.</label>
+        <label><input type="radio" name="q9" value="c"> Build systems and checklists that make life easier.</label>
+        <label><input type="radio" name="q9" value="d"> Build community and help others feel included.</label>
+        <label><input type="radio" name="q9" value="e"> Handle the tech and teach people how to use it.</label>
+        <label><input type="radio" name="q9" value="f"> Front desk vibes: calm, clear, and organized.</label>
+        <label><input type="radio" name="q9" value="g"> Support the culture as a member and give feedback.</label>
+      </fieldset>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">Reveal my role 🎯</button>
+        <button class="btn" type="reset">Reset</button>
+      </div>
+
+      <p class="smallNote">
+        Submission works on GitHub Pages via <strong>Email</strong> or <strong>Download JSON</strong>.
+      </p>
+    </form>
+
+    <section id="resultCard" class="card hidden" aria-live="polite">
+      <h2 class="pixel">Your result</h2>
+
+      <div class="resultMain">
+        <div class="resultRole" id="resultRole">—</div>
+        <div class="resultMeta">
+          <div class="resultSubtitle" id="resultSubtitle"></div>
+          <p class="resultDesc" id="resultDesc"></p>
+          <p class="resultNext" id="resultNext"></p>
+          <p class="resultSecondary" id="resultSecondary"></p>
+        </div>
+      </div>
+
+      <details class="scores">
+        <summary>Show score breakdown</summary>
+        <ul id="resultScores"></ul>
+      </details>
+
+      <div class="actions">
+        <button id="btnCopy" class="btn">Copy result</button>
+        <button id="btnEmail" class="btn">Email submission</button>
+        <button id="btnDownload" class="btn">Download JSON</button>
+        <button id="btnSubmit" class="btn">Submit (endpoint)</button>
+      </div>
+
+      <div id="submitStatus" class="status" data-kind="info"></div>
+    </section>
+
+    <footer class="foot">
+      <div>Black • Gold • Red • Green • Eggshell</div>
+      <div>Built for PTG • GitHub Pages friendly</div>
+    </footer>
+  </main>
+
+  <!-- ✅ Optional audio: starts muted; requires user tap -->
+  <audio id="bgMusic" src="../../assets/audio/music0.mp3" loop preload="none"></audio>
+
+  <!-- ✅ App logic: keep in same folder as this page -->
+  <script src="./app.js"></script>
+
+  <script>
+    // ===== PS5 MODE =====
+    const ps5Toggle = document.getElementById('ps5Toggle');
+    const savedPs5 = localStorage.getItem('ptg_ps5_mode') === '1';
+    if (savedPs5) document.body.classList.add('ps5');
+
+    ps5Toggle?.addEventListener('click', () => {
+      const on = document.body.classList.toggle('ps5');
+      localStorage.setItem('ptg_ps5_mode', on ? '1' : '0');
+      ps5Toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+
+    // ===== MUSIC TOGGLE (safe for iOS) =====
+    const musicToggle = document.getElementById('musicToggle');
+    const bgMusic = document.getElementById('bgMusic');
+
+    // Default muted ON (iOS autoplay compliance)
+    let muted = localStorage.getItem('ptg_rolequiz_muted');
+    muted = (muted === null) ? '1' : muted;
+
+    function syncMusicUI(){
+      const isMuted = muted === '1';
+      musicToggle.textContent = isMuted ? '🔇 Music Off' : '🔊 Music On';
+      musicToggle.setAttribute('aria-pressed', isMuted ? 'true' : 'false');
+    }
+    syncMusicUI();
+
+    musicToggle?.addEventListener('click', async () => {
+      const isMuted = muted === '1';
+
+      if (isMuted){
+        try{
+          await bgMusic.play();
+          muted = '0';
+        }catch(e){
+          // If play fails, keep muted and show simple feedback
+          muted = '1';
+          alert("Tap again — some browsers block audio until interaction.");
+        }
+      } else {
+        bgMusic.pause();
+        muted = '1';
+      }
+
+      localStorage.setItem('ptg_rolequiz_muted', muted);
+      syncMusicUI();
+    });
+  </script>
+</body>
+</html>
