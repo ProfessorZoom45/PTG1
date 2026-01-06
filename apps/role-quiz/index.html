@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PTG • Role Quiz</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+
+  <style>
+    fieldset{border:2px solid var(--border); border-radius:16px; padding:14px; background:rgba(255,255,255,.55)}
+    @media (prefers-color-scheme: dark){ fieldset{background:rgba(0,0,0,.35)} }
+    legend{font-weight:1000}
+    .qNum{color:var(--red); font-weight:1000; margin-right:8px}
+    .hint{font-size:13px; opacity:.95; margin-top:8px}
+    label.opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px; border-radius:14px; margin:6px 0;
+      cursor:pointer; border:2px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.6);
+    }
+    @media (prefers-color-scheme: dark){ label.opt{background:rgba(0,0,0,.25)} }
+    label.opt:hover{border-color:rgba(212,175,55,.45)}
+    input[type="checkbox"]{transform:scale(1.25); margin-top:2px}
+    select, input[type="text"]{
+      width:100%; padding:12px 12px; border-radius:14px;
+      border:2px solid rgba(0,0,0,.15); background:rgba(255,255,255,.92);
+      font-size:16px;
+    }
+    @media (prefers-color-scheme: dark){ select, input[type="text"]{background:rgba(0,0,0,.3); color:var(--ink); border-color:rgba(255,255,255,.15)} }
+    .row3{display:grid; gap:10px; grid-template-columns:1fr 1fr 1fr}
+    @media (max-width:740px){ .row3{grid-template-columns:1fr} }
+    .status{padding:10px 12px; border-radius:14px; border:2px solid var(--border); background:rgba(255,255,255,.75); font-weight:900}
+    @media (prefers-color-scheme: dark){ .status{background:rgba(0,0,0,.35)} }
+    .hidden{display:none}
+  </style>
+</head>
+
+<body>
+<main class="wrap">
+  <section class="card">
+    <div class="btnRow" style="justify-content:space-between;">
+      <div>
+        <div class="pixel" style="font-size:14px;">PTG Role Quiz 🎯</div>
+        <div class="small">Most questions: <strong>pick 1–3</strong> ✅ (you’ll see it on each line).</div>
+      </div>
+      <div class="btnRow">
+        <a class="btn" href="../../index.html">🏠 Home</a>
+        <button class="btn" id="musicToggle" type="button" aria-pressed="true">🔇 Music Off</button>
+      </div>
+    </div>
+  </section>
+
+  <form id="quizForm" class="card" novalidate>
+    <h1 class="pixel" style="margin:0 0 10px 0;">Find your lane</h1>
+
+    <!-- Q1 split -->
+    <fieldset>
+      <legend><span class="qNum">Q1</span> Basics</legend>
+      <div class="row3" style="margin-top:10px;">
+        <div>
+          <label class="small" for="name">First name</label>
+          <input id="name" name="name" type="text" placeholder="Example: Jordan" required />
+        </div>
+        <div>
+          <label class="small" for="ageRange">Age range</label>
+          <select id="ageRange" name="ageRange" required>
+            <option value="" selected disabled>Pick one…</option>
+            <option value="u13">Under 13</option>
+            <option value="13-15">13–15</option>
+            <option value="16-17">16–17</option>
+            <option value="18-24">18–24</option>
+            <option value="25-34">25–34</option>
+            <option value="35plus">35+</option>
+          </select>
+        </div>
+        <div>
+          <label class="small" for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="" selected disabled>Pick one…</option>
+            <option value="M">M</option>
+            <option value="F">F</option>
+            <option value="NA">N/A</option>
+          </select>
+        </div>
+      </div>
+      <div class="hint">No last names. Keep it simple ✅</div>
+    </fieldset>
+
+    <!-- Q2..Q9: checkbox pick 1-3, scrambled via JS -->
+    <fieldset data-min="1" data-max="3">
+      <legend><span class="qNum">Q2</span> What sounds most like you? <span class="small">(pick 1–3)</span></legend>
+      <label class="opt"><input type="checkbox" name="q2" value="CEO"> Big calls + protect the mission.</label>
+      <label class="opt"><input type="checkbox" name="q2" value="GM"> Run the day + keep the floor smooth.</label>
+      <label class="opt"><input type="checkbox" name="q2" value="COMM"> Events + people + community vibe.</label>
+      <label class="opt"><input type="checkbox" name="q2" value="TECH"> Tech + systems + making it work.</label>
+      <label class="opt"><input type="checkbox" name="q2" value="CASH"> Front desk + check-in/out + fairness.</label>
+      <label class="opt"><input type="checkbox" name="q2" value="MEMBER"> Safe fun place + support the culture.</label>
+      <div class="hint" data-live="q2"></div>
+    </fieldset>
+
+    <fieldset data-min="1" data-max="3">
+      <legend><span class="qNum">Q3</span> If conflict pops off, you… <span class="small">(pick 1–3)</span></legend>
+      <label class="opt"><input type="checkbox" name="q3" value="OPS"> Step in, calm it, set the boundary.</label>
+      <label class="opt"><input type="checkbox" name="q3" value="CASH"> Keep it polite and moving.</label>
+      <label class="opt"><input type="checkbox" name="q3" value="TECH"> Fix the system so it stops repeating.</label>
+      <label class="opt"><input type="checkbox" name="q3" value="COMM"> Reset the vibe + reconnect people.</label>
+      <label class="opt"><input type="checkbox" name="q3" value="GM"> Handle it in real time like a floor lead.</label>
+      <label class="opt"><input type="checkbox" name="q3" value="MEMBER"> I avoid drama — I want peace.</label>
+      <div class="hint" data-live="q3"></div>
+    </fieldset>
+
+    <fieldset data-min="1" data-max="3">
+      <legend><span class="qNum">Q4</span> Your “extra effort” looks like… <span class="small">(pick 1–3)</span></legend>
+      <label class="opt"><input type="checkbox" name="q4" value="OPS"> Clean, organize, fix what’s broken.</label>
+      <label class="opt"><input type="checkbox" name="q4" value="COMM"> Host, welcome, include people.</label>
+      <label class="opt"><input type="checkbox" name="q4" value="TECH"> Help with setups + teach.</label>
+      <label class="opt"><input type="checkbox" name="q4" value="CASH"> Check-ins + questions + fairness.</label>
+      <label class="opt"><input type="checkbox" name="q4" value="CEO"> Take responsibility when it matters.</label>
+      <label class="opt"><input type="checkbox" name="q4" value="MEMBER"> Show up consistent + follow rules.</label>
+      <div class="hint" data-live="q4"></div>
+    </fieldset>
+
+    <fieldset data-min="1" data-max="3">
+      <legend><span class="qNum">Q5</span> A “10/10 visit” needs… <span class="small">(pick 1–3)</span></legend>
+      <label class="opt"><input type="checkbox" name="q5" value="CASH"> Friendly staff + quick help.</label>
+      <label class="opt"><input type="checkbox" name="q5" value="OPS"> Clean space + smooth systems.</label>
+      <label class="opt"><input type="checkbox" name="q5" value="COMM"> Strong vibe + respect.</label>
+      <label class="opt"><input type="checkbox" name="q5" value="TECH"> Great setup: controllers/updates/accounts.</label>
+      <label class="opt"><input type="checkbox" name="q5" value="CEO"> Clear fairness rules for everyone.</label>
+      <div class="hint" data-live="q5"></div>
+    </fieldset>
+
+    <fieldset data-min="1" data-max="3">
+      <legend><span class="qNum">Q6</span> PTG game plan should prioritize… <span class="small">(pick 1–3)</span></legend>
+      <label class="opt"><input type="checkbox" name="q6" value="GM"> Big crowd games (easy to jump in).</label>
+      <label class="opt"><input type="checkbox" name="q6" value="COMM"> Community games (events/co-op).</label>
+      <label class="opt"><input type="checkbox" name="q6" value="OPS"> Organized library rules + updates.</label>
+      <label class="opt"><input type="checkbox" name="q6" value="MEMBER"> Whatever people want most (flex).</label>
+      <label class="opt"><input type="checkbox" name="q6" value="CEO"> Balanced plan that matches the mission.</label>
+      <div class="hint" data-live="q6"></div>
+    </fieldset>
+
+    <fieldset data-min="1" data-max="3">
+      <legend><span class="qNum">Q7</span> Rules should be… <span class="small">(pick 1–3)</span></legend>
+      <label class="opt"><input type="checkbox" name="q7" value="OPS"> Strict + consistent.</label>
+      <label class="opt"><input type="checkbox" name="q7" value="CASH"> Strict but fair (explain first).</label>
+      <label class="opt"><input type="checkbox" name="q7" value="COMM"> Chill, step in when needed.</label>
+      <label class="opt"><input type="checkbox" name="q7" value="MEMBER"> Mostly chill.</label>
+      <label class="opt"><input type="checkbox" name="q7" value="GM"> Different by age group/time.</label>
+      <div class="hint" data-live="q7"></div>
+    </fieldset>
+
+    <fieldset data-min="1" data-max="3">
+      <legend><span class="qNum">Q8</span> Community move that matters most… <span class="small">(pick 1–3)</span></legend>
+      <label class="opt"><input type="checkbox" name="q8" value="COMM"> Weekly events that pull people in.</label>
+      <label class="opt"><input type="checkbox" name="q8" value="CEO"> Leaders protect culture + safety.</label>
+      <label class="opt"><input type="checkbox" name="q8" value="TECH"> Tech workshops (accounts/safety/basics).</label>
+      <label class="opt"><input type="checkbox" name="q8" value="CASH"> Customer service like family.</label>
+      <label class="opt"><input type="checkbox" name="q8" value="OPS"> Consistency every day.</label>
+      <label class="opt"><input type="checkbox" name="q8" value="MEMBER"> A cool place to belong (with structure).</label>
+      <div class="hint" data-live="q8"></div>
+    </fieldset>
+
+    <fieldset data-min="1" data-max="3">
+      <legend><span class="qNum">Q9</span> How you lead/support… <span class="small">(pick 1–3)</span></legend>
+      <label class="opt"><input type="checkbox" name="q9" value="CEO"> Set vision + protect values.</label>
+      <label class="opt"><input type="checkbox" name="q9" value="GM"> Coordinate people + solve in real time.</label>
+      <label class="opt"><input type="checkbox" name="q9" value="OPS"> Build checklists + standards.</label>
+      <label class="opt"><input type="checkbox" name="q9" value="COMM"> Build community + inclusion.</label>
+      <label class="opt"><input type="checkbox" name="q9" value="TECH"> Handle tech + teach.</label>
+      <label class="opt"><input type="checkbox" name="q9" value="CASH"> Calm front desk clarity.</label>
+      <label class="opt"><input type="checkbox" name="q9" value="MEMBER"> Support as member + feedback.</label>
+      <div class="hint" data-live="q9"></div>
+    </fieldset>
+
+    <div class="btnRow" style="margin-top:12px;">
+      <button class="btn primary" type="submit">🎯 Reveal my role</button>
+      <button class="btn" type="reset">Reset</button>
+    </div>
+
+    <p class="small" style="margin-top:10px;">
+      GitHub Pages fallback: Email + Download always work ✅. Cloudflare Submit works after setup.
+    </p>
+  </form>
+
+  <section id="resultCard" class="card hidden" aria-live="polite">
+    <h2 class="pixel" style="margin:0 0 10px 0;">Your result</h2>
+    <div class="card" style="margin:0 0 12px 0;">
+      <div style="font-weight:1000;font-size:26px;" id="resultRole">—</div>
+      <div class="small" id="resultSubtitle"></div>
+      <p id="resultDesc" style="margin:8px 0 0 0;"></p>
+    </div>
+
+    <details class="card" style="margin:0;">
+      <summary style="font-weight:1000;cursor:pointer;">Show score breakdown</summary>
+      <ul id="resultScores"></ul>
+    </details>
+
+    <div class="btnRow" style="margin-top:12px;">
+      <button class="btn" id="btnEmail" type="button">📧 Email</button>
+      <button class="btn" id="btnDownload" type="button">⬇️ Download JSON</button>
+      <button class="btn green" id="btnSubmit" type="button">✅ Submit (Cloudflare)</button>
+    </div>
+
+    <div id="submitStatus" class="status" style="margin-top:10px;">Ready.</div>
+  </section>
+
+  <audio id="bgMusic" src="../../assets/audio/music0.mp3" loop preload="none"></audio>
+</main>
+
+<script>
+  // ✅ Replace with your Worker URL AFTER deploy (example):
+  // window.PTG_SUBMIT_ENDPOINT = "https://ptg-role-quiz-api.YOURNAME.workers.dev/submit";
+  window.PTG_SUBMIT_ENDPOINT = "";
+  // Optional: set secret if you use one in Cloudflare
+  window.PTG_SUBMIT_SECRET = "";
+</script>
+<script src="./app.js"></script>
+
+<script>
+  // Music toggle (iOS-safe)
+  const musicToggle = document.getElementById("musicToggle");
+  const bgMusic = document.getElementById("bgMusic");
+  let muted = localStorage.getItem("ptg_rolequiz_muted");
+  muted = (muted === null) ? "1" : muted;
+
+  function syncMusic(){
+    const isMuted = muted === "1";
+    musicToggle.textContent = isMuted ? "🔇 Music Off" : "🔊 Music On";
+    musicToggle.setAttribute("aria-pressed", isMuted ? "true" : "false");
+  }
+  syncMusic();
+
+  musicToggle.addEventListener("click", async () => {
+    const isMuted = muted === "1";
+    if (isMuted){
+      try{ await bgMusic.play(); muted="0"; }
+      catch{ muted="1"; alert("Tap again — browser needs interaction for audio."); }
+    } else {
+      bgMusic.pause(); muted="1";
+    }
+    localStorage.setItem("ptg_rolequiz_muted", muted);
+    syncMusic();
+  });
+</script>
+</body>
+</html>
