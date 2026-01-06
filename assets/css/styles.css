@@ -1,0 +1,88 @@
+/* PTG Shared Styles (v1) */
+:root{
+  --egg:#f3efe6;
+  --ink:#111;
+  --card:rgba(255,255,255,.78);
+  --border:rgba(17,17,17,.14);
+  --shadow:0 10px 30px rgba(0,0,0,.10);
+  --gold:#d4af37;
+  --red:#c1121f;
+  --green:#2e7d32;
+  --radius:18px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --egg:#0b0b0b;
+    --ink:#f4f4f4;
+    --card:rgba(17,17,17,.75);
+    --border:rgba(255,255,255,.12);
+    --shadow:0 12px 34px rgba(0,0,0,.45);
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:var(--egg);
+  color:var(--ink);
+  line-height:1.55;
+}
+a{color:inherit}
+.pixel{font-family:"Press Start 2P", monospace; letter-spacing:.5px}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px 32px}
+.card{
+  background:var(--card);
+  border:2px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow);
+  margin:14px 0;
+}
+.btn{
+  appearance:none;
+  border:2px solid rgba(17,17,17,.18);
+  background:#fff;
+  color:#111;
+  padding:12px 14px;
+  border-radius:14px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  transition:transform .08s ease, border-color .2s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn.primary{
+  border-color:rgba(212,175,55,.65);
+  background:linear-gradient(180deg,#fff,rgba(212,175,55,.10));
+}
+.btn.green{
+  border-color:rgba(46,125,50,.55);
+  background:linear-gradient(180deg,#fff,rgba(46,125,50,.18));
+}
+.btnRow{display:flex;gap:10px;flex-wrap:wrap}
+.badgeRow{display:flex;gap:8px;flex-wrap:wrap}
+.badge{
+  font-size:12px;
+  font-weight:900;
+  padding:8px 10px;
+  border-radius:999px;
+  border:2px solid rgba(17,17,17,.10);
+  background:rgba(255,255,255,.75);
+}
+.hero{display:grid;gap:14px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(2, minmax(0,1fr))}
+@media (max-width:740px){ .grid{grid-template-columns:1fr} }
+.gallery{display:grid;gap:10px;grid-template-columns:repeat(2, minmax(0,1fr))}
+@media (max-width:740px){ .gallery{grid-template-columns:1fr} }
+.gallery figure{
+  margin:0;border-radius:16px;overflow:hidden;border:2px solid var(--border);
+  background:rgba(255,255,255,.35);
+}
+.gallery img{width:100%;height:240px;object-fit:cover;display:block}
+.gallery figcaption{padding:10px 12px;font-weight:800;font-size:13px;opacity:.95}
+.small{font-size:13px;opacity:.95}
+.hr{height:2px;background:var(--border);border-radius:999px;margin:14px 0}
