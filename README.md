@@ -1,26 +1,27 @@
-# PTG Home (Drop-in)
+# GitHub Pages • Gaming Survey (Folder: /gaming-survey)
 
-This folder contains a **new PTG Home index.html** built to match the PTG “recipe”.
+This zip is structured to match a GitHub Pages site where projects live in subfolders.
 
-## Folder recipe (matches your mental model)
-- **Normal pages (site pages)** live in **root** (like `index.html`, `lounge.html`, `services.html`).
-- **Webapps** live in `apps/`.
-- Shared assets:
-  - CSS: `assets/css/styles.css`
-  - Images: `assets/img/...`
-  - Music: `assets/audio/music0.mp3` (recommended)
+✅ Put the **entire** `gaming-survey/` folder into the **root** of your GitHub Pages repo.
 
-## Music0 setup
-Your GitHub repo currently has `music0.mp3` in the root.
+## Recommended setup (matches your URL)
+Repo: `professorzoom45.github.io` (your user site repo)
 
-You have **two working options**:
-1. ✅ Recommended: move it to `assets/audio/music0.mp3`
-2. ✅ Keep it in root: leave `music0.mp3` where it is (the home page will auto-fallback)
+1. Open your repo on GitHub
+2. Upload / drag-drop the `gaming-survey/` folder into the repo root
+3. Go to **Settings → Pages**
+4. **Source:** Deploy from branch
+5. **Branch:** `main`  |  **Folder:** `/ (root)`
+6. Save
 
-## Links on the Home page
-- `./lounge.html`
-- `./services.html`
-- `./surveys/`
-- `./apps/`
-- `./apps/role-quiz/` (add your Role Quiz app folder here)
+Your live link:
+- https://professorzoom45.github.io/gaming-survey/
 
+## If you place it inside a different repo (example: PTG1)
+Your link becomes:
+- https://professorzoom45.github.io/PTG1/gaming-survey/
+
+## Notes
+- The survey uses `mailto:` so the visitor's email app must be set up.
+- Email recipient: `changethewrld@outlook.com`
+- Subject: `Gaming Survey`
