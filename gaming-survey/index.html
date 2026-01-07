@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gaming Survey • Change The WRLD</title>
+  <meta name="description" content="Quick 8-question survey about what games you like and why you game." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🎮</div>
+        <div>
+          <h1>Gaming Survey</h1>
+          <p class="sub">8 quick questions • takes ~60 seconds • sends results to email ✉️</p>
+        </div>
+      </div>
+      <p class="note">
+        When you hit <strong>Submit</strong>, your email app opens with your answers pre-filled.
+        If nothing opens, copy your answers and email them to <strong>ChangeTheWRLD@outlook.com</strong>.
+      </p>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <form id="survey" novalidate>
+      <!-- Q1 -->
+      <section class="card">
+        <h2>1) What platforms do you play on most? <span class="hint">(pick all that apply)</span></h2>
+        <div class="grid">
+          <label class="opt"><input type="checkbox" name="platforms" value="PS5 / PS4"> PS5 / PS4</label>
+          <label class="opt"><input type="checkbox" name="platforms" value="Xbox Series / Xbox One"> Xbox Series / Xbox One</label>
+          <label class="opt"><input type="checkbox" name="platforms" value="PC"> PC</label>
+          <label class="opt"><input type="checkbox" name="platforms" value="Nintendo Switch"> Nintendo Switch</label>
+          <label class="opt"><input type="checkbox" name="platforms" value="Mobile (iOS/Android)"> Mobile (iOS/Android)</label>
+          <label class="opt"><input type="checkbox" name="platforms" value="Other"> Other: <input class="inline" type="text" name="platforms_other" placeholder="e.g., Steam Deck" /></label>
+        </div>
+      </section>
+
+      <!-- Q2 -->
+      <section class="card">
+        <h2>2) What game genres do you enjoy the most? <span class="hint">(pick up to 3)</span></h2>
+        <p class="micro" id="genresMsg">Pick up to 3.</p>
+        <div class="grid" data-max="3" data-group="genres">
+          <label class="opt"><input type="checkbox" name="genres" value="Sports"> Sports</label>
+          <label class="opt"><input type="checkbox" name="genres" value="Shooter (FPS/TPS)"> Shooter (FPS/TPS)</label>
+          <label class="opt"><input type="checkbox" name="genres" value="RPG"> RPG</label>
+          <label class="opt"><input type="checkbox" name="genres" value="Fighting"> Fighting</label>
+          <label class="opt"><input type="checkbox" name="genres" value="Adventure / Open World"> Adventure / Open World</label>
+          <label class="opt"><input type="checkbox" name="genres" value="Strategy"> Strategy</label>
+          <label class="opt"><input type="checkbox" name="genres" value="Simulation"> Simulation</label>
+          <label class="opt"><input type="checkbox" name="genres" value="Horror"> Horror</label>
+          <label class="opt"><input type="checkbox" name="genres" value="Puzzle / Party"> Puzzle / Party</label>
+          <label class="opt"><input type="checkbox" name="genres" value="Other"> Other: <input class="inline" type="text" name="genres_other" placeholder="type it here" /></label>
+        </div>
+      </section>
+
+      <!-- Q3 -->
+      <section class="card">
+        <h2>3) List up to 5 games you’ve enjoyed the most in the last year.</h2>
+        <div class="stack">
+          <input class="text" type="text" name="game_1" placeholder="1) Game title" />
+          <input class="text" type="text" name="game_2" placeholder="2) Game title" />
+          <input class="text" type="text" name="game_3" placeholder="3) Game title" />
+          <input class="text" type="text" name="game_4" placeholder="4) Game title" />
+          <input class="text" type="text" name="game_5" placeholder="5) Game title" />
+        </div>
+      </section>
+
+      <!-- Q4 -->
+      <section class="card">
+        <h2>4) What do you usually play for? <span class="hint">(pick up to 2)</span></h2>
+        <p class="micro" id="playForMsg">Pick up to 2.</p>
+        <div class="grid" data-max="2" data-group="playFor">
+          <label class="opt"><input type="checkbox" name="play_for" value="Competition / ranked"> Competition / ranked</label>
+          <label class="opt"><input type="checkbox" name="play_for" value="Story / immersion"> Story / immersion</label>
+          <label class="opt"><input type="checkbox" name="play_for" value="Relax / chill"> Relax / chill</label>
+          <label class="opt"><input type="checkbox" name="play_for" value="Friends / social vibes"> Friends / social vibes</label>
+          <label class="opt"><input type="checkbox" name="play_for" value="Achievements / collecting"> Achievements / collecting</label>
+          <label class="opt"><input type="checkbox" name="play_for" value="Creativity (building, customizing)"> Creativity (building, customizing)</label>
+          <label class="opt"><input type="checkbox" name="play_for" value="Other"> Other: <input class="inline" type="text" name="play_for_other" placeholder="type it here" /></label>
+        </div>
+      </section>
+
+      <!-- Q5 -->
+      <section class="card">
+        <h2>5) When you play, what matters most to you? <span class="hint">(pick up to 3)</span></h2>
+        <p class="micro" id="mattersMsg">Pick up to 3.</p>
+        <div class="grid" data-max="3" data-group="matters">
+          <label class="opt"><input type="checkbox" name="matters" value="Smooth gameplay / controls"> Smooth gameplay / controls</label>
+          <label class="opt"><input type="checkbox" name="matters" value="Graphics / visuals"> Graphics / visuals</label>
+          <label class="opt"><input type="checkbox" name="matters" value="Story / characters"> Story / characters</label>
+          <label class="opt"><input type="checkbox" name="matters" value="Online features / matchmaking"> Online features / matchmaking</label>
+          <label class="opt"><input type="checkbox" name="matters" value="Customization (builds, cosmetics, teams)"> Customization (builds, cosmetics, teams)</label>
+          <label class="opt"><input type="checkbox" name="matters" value="Difficulty / challenge"> Difficulty / challenge</label>
+          <label class="opt"><input type="checkbox" name="matters" value="Music / sound design"> Music / sound design</label>
+          <label class="opt"><input type="checkbox" name="matters" value="Replay value / endgame content"> Replay value / endgame content</label>
+        </div>
+      </section>
+
+      <!-- Q6 -->
+      <section class="card">
+        <h2>6) How do you prefer to play?</h2>
+        <div class="stack">
+          <label class="opt"><input type="radio" name="play_style" value="Solo"> Solo</label>
+          <label class="opt"><input type="radio" name="play_style" value="Co-op with friends"> Co-op with friends</label>
+          <label class="opt"><input type="radio" name="play_style" value="Online multiplayer (casual)"> Online multiplayer (casual)</label>
+          <label class="opt"><input type="radio" name="play_style" value="Online multiplayer (competitive)"> Online multiplayer (competitive)</label>
+          <label class="opt"><input type="radio" name="play_style" value="Local couch multiplayer"> Local couch multiplayer</label>
+        </div>
+      </section>
+
+      <!-- Q7 -->
+      <section class="card">
+        <h2>7) What’s your biggest turn-off in games? <span class="hint">(pick up to 2)</span></h2>
+        <p class="micro" id="turnoffsMsg">Pick up to 2.</p>
+        <div class="grid" data-max="2" data-group="turnoffs">
+          <label class="opt"><input type="checkbox" name="turnoffs" value="Pay-to-win / unfair money stuff"> Pay-to-win / unfair money stuff</label>
+          <label class="opt"><input type="checkbox" name="turnoffs" value="Bugs / bad performance"> Bugs / bad performance</label>
+          <label class="opt"><input type="checkbox" name="turnoffs" value="Toxic community"> Toxic community</label>
+          <label class="opt"><input type="checkbox" name="turnoffs" value="Too grindy / time-wasting"> Too grindy / time-wasting</label>
+          <label class="opt"><input type="checkbox" name="turnoffs" value="Bad matchmaking / unbalanced teams"> Bad matchmaking / unbalanced teams</label>
+          <label class="opt"><input type="checkbox" name="turnoffs" value="Boring story / repetitive missions"> Boring story / repetitive missions</label>
+          <label class="opt"><input type="checkbox" name="turnoffs" value="Too many ads / popups (mobile)"> Too many ads / popups (mobile)</label>
+        </div>
+      </section>
+
+      <!-- Q8 -->
+      <section class="card">
+        <h2>8) If you could change ONE thing about modern gaming, what would it be?</h2>
+        <textarea class="text" name="one_change" rows="4" placeholder="Say it with your chest 😤 (one sentence is fine)"></textarea>
+      </section>
+
+      <section class="actions">
+        <button id="submitBtn" type="submit" class="btn">Submit ✉️</button>
+        <p class="micro" id="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <footer class="foot">
+        <p class="micro">Made for Change The WRLD Gaming • GitHub Pages-ready 🚀</p>
+      </footer>
+    </form>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
