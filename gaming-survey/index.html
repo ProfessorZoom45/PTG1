@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PTG 🎯 Market Research Survey</title>
+
+  <!-- Fonts (pixel title + clean body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css" />
+  <meta name="theme-color" content="#00c853" />
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Sticky PTG Header -->
+  <header class="top">
+    <div class="topInner">
+      <div class="brand">
+        <div class="logoWrap" aria-hidden="true">
+          <img class="logoImg" src="./ptg_logo_big.png" alt="" />
+        </div>
+        <div class="brandText">
+          <div class="brandTitle">Perfect Timing Gaming</div>
+          <div class="brandSub">Market Research • Proof-of-Concept Form • Email Submit ✉️</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Survey shortcuts">
+        <a href="#q1">Start</a>
+        <a href="#q5">Q5</a>
+        <a href="#q9">Market</a>
+        <a href="#q15">Q15</a>
+        <a href="#q21">Q21</a>
+        <a href="#q24">Socials</a>
+      </nav>
+    </div>
+
+    <!-- Progress strip -->
+    <div class="progressWrap" aria-hidden="true">
+      <div class="progressBar" id="progressBar"></div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero">
+      <h1>🎮 PTG Market Research Survey</h1>
+      <p class="lead">
+        This page is a full proof‑of‑concept: mission + rules visuals, market research questions, and one‑tap email submission.
+        Your answers help us build a safe, real, people‑first gaming lounge experience.
+      </p>
+
+      <div class="pillRow" role="list">
+        <div class="pill" role="listitem">🧠 Saves as you type</div>
+        <div class="pill" role="listitem">✅ Pick-limits enforced</div>
+        <div class="pill" role="listitem">🖼️ Mission + Rules posters included</div>
+        <div class="pill" role="listitem">✉️ Submits by email</div>
+      </div>
+
+      <div class="notice">
+        <strong>How submit works:</strong> Tap <span class="kbd">Submit 🎯</span> and your email app opens with answers pre‑filled.
+        If your device blocks mail links, tap <span class="kbd">Copy Answers</span> and paste into an email.
+      </div>
+
+      <div class="noteBar">
+        <strong>NOTE:</strong> PTG = <strong>Protect Trust &amp; Growth</strong>. We’re building a space that protects people (and families) from boredom + stale routine — without chaos, gambling, or toxic behavior.
+      </div>
+    </section>
+
+    <!-- Visuals (Mission + Rules) -->
+    <section class="card mediaCard" aria-label="PTG posters">
+      <div class="mediaTop">
+        <h2 class="mediaTitle">🧾 PTG Mission & Rules (Visual Proof)</h2>
+        <p class="mediaSub">These posters show the vibe we’re protecting: safe space, good vibes, no gambling, no alcohol, respect the space.</p>
+      </div>
+
+      <div class="mediaGrid">
+        <figure class="mediaFigure">
+          <img class="mediaImg" src="./PTG%20MISSION%20AND%20RULES.png" alt="PTG mission poster and rules poster displayed side-by-side." />
+          <figcaption class="mediaCap">PTG Mission + Rules posters</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <form id="surveyForm" class="card" autocomplete="on" novalidate>
+      <!-- =========================
+           PART A — FAST GAMING SNAPSHOT (Q1–Q8)
+           ========================= -->
+
+      <div class="sectionTag" id="snapshot">Part A — Fast Gaming Snapshot</div>
+
+      <!-- Q1 -->
+      <section class="q" id="q1" data-q="1">
+        <div class="qTop">
+          <h2>Q1) Where do you usually play video games?</h2>
+          <div class="limit">Pick all that apply</div>
+        </div>
+
+        <div class="grid2">
+          <label class="opt"><input type="checkbox" name="q1_where_play" value="Home"> Home</label>
+          <label class="opt"><input type="checkbox" name="q1_where_play" value="Online with friends"> Online with friends</label>
+          <label class="opt"><input type="checkbox" name="q1_where_play" value="Gaming lounge / arcade"> Gaming lounge / arcade</label>
+          <label class="opt">
+            <input type="checkbox" name="q1_where_play" value="Other"> Other:
+            <input class="mini" type="text" name="q1_where_play_other" placeholder="School club, library, etc." />
+          </label>
+        </div>
+      </section>
+
+      <!-- Q2 -->
+      <section class="q" id="q2" data-q="2" data-limit="3">
+        <div class="qTop">
+          <h2>Q2) Which game genres interest you the most?</h2>
+          <div class="limit"><span class="counter" data-counter>0</span>/3 selected</div>
+        </div>
+
+        <div class="grid3">
+          <label class="opt"><input type="checkbox" name="q2_genres" value="Sports"> Sports</label>
+          <label class="opt"><input type="checkbox" name="q2_genres" value="Shooters (FPS/TPS)"> Shooters (FPS/TPS)</label>
+          <label class="opt"><input type="checkbox" name="q2_genres" value="Fighting"> Fighting</label>
+          <label class="opt"><input type="checkbox" name="q2_genres" value="Rhythm"> Rhythm</label>
+          <label class="opt"><input type="checkbox" name="q2_genres" value="RPG"> RPG</label>
+          <label class="opt"><input type="checkbox" name="q2_genres" value="Adventure / Open World"> Adventure / Open World</label>
+          <label class="opt"><input type="checkbox" name="q2_genres" value="Strategy"> Strategy</label>
+          <label class="opt"><input type="checkbox" name="q2_genres" value="Puzzle / Party"> Puzzle / Party</label>
+          <label class="opt">
+            <input type="checkbox" name="q2_genres" value="Other"> Other:
+            <input class="mini" type="text" name="q2_genres_other" placeholder="MMO, Roguelike, etc." />
+          </label>
+        </div>
+        <p class="hint">Pick your top 3 — it’ll auto-stop you at the limit 🛑</p>
+      </section>
+
+      <!-- Q3 -->
+      <section class="q" id="q3" data-q="3" data-optional="true">
+        <div class="qTop">
+          <h2>Q3) List up to 5 games you enjoyed most in the last year</h2>
+          <div class="limit">Optional (but super helpful)</div>
+        </div>
+
+        <div class="grid2">
+          <input class="line" type="text" name="q3_game_1" placeholder="1) Game title" />
+          <input class="line" type="text" name="q3_game_2" placeholder="2) Game title" />
+          <input class="line" type="text" name="q3_game_3" placeholder="3) Game title" />
+          <input class="line" type="text" name="q3_game_4" placeholder="4) Game title" />
+          <input class="line" type="text" name="q3_game_5" placeholder="5) Game title" />
+        </div>
+      </section>
+
+      <!-- Q4 -->
+      <section class="q" id="q4" data-q="4" data-limit="2">
+        <div class="qTop">
+          <h2>Q4) What types of events would you like to attend at PTG?</h2>
+          <div class="limit"><span class="counter" data-counter>0</span>/2 selected</div>
+        </div>
+
+        <div class="grid2">
+          <label class="opt"><input type="checkbox" name="q4_events" value="Tournaments"> Tournaments</label>
+          <label class="opt"><input type="checkbox" name="q4_events" value="Casual sessions / free-play"> Casual sessions / free-play</label>
+          <label class="opt"><input type="checkbox" name="q4_events" value="Music & gaming nights"> Music & gaming nights</label>
+          <label class="opt"><input type="checkbox" name="q4_events" value="Educational workshops"> Educational workshops</label>
+          <label class="opt">
+            <input type="checkbox" name="q4_events" value="Other"> Other:
+            <input class="mini" type="text" name="q4_events_other" placeholder="Movie nights, cosplay, etc." />
+          </label>
+        </div>
+      </section>
+
+      <!-- Q5 -->
+      <section class="q" id="q5" data-q="5">
+        <div class="qTop">
+          <h2>Q5) How often would you visit a gaming lounge per month?</h2>
+          <div class="limit">Pick 1</div>
+        </div>
+
+        <div class="grid2">
+          <label class="opt"><input type="radio" name="q5_visits" value="None"> None</label>
+          <label class="opt"><input type="radio" name="q5_visits" value="1–2 times"> 1–2 times</label>
+          <label class="opt"><input type="radio" name="q5_visits" value="3–4 times"> 3–4 times</label>
+          <label class="opt"><input type="radio" name="q5_visits" value="Weekly"> Weekly</label>
+          <label class="opt"><input type="radio" name="q5_visits" value="More than weekly"> More than weekly</label>
+        </div>
+      </section>
+
+      <!-- Q6 -->
+      <section class="q" id="q6" data-q="6">
+        <div class="qTop">
+          <h2>Q6) What is your preferred session duration?</h2>
+          <div class="limit">Pick 1</div>
+        </div>
+
+        <div class="grid2">
+          <label class="opt"><input type="radio" name="q6_duration" value="1 hour"> 1 hour</label>
+          <label class="opt"><input type="radio" name="q6_duration" value="2–3 hours"> 2–3 hours</label>
+          <label class="opt"><input type="radio" name="q6_duration" value="All day"> All day</label>
+          <label class="opt">
+            <input type="radio" name="q6_duration" value="Other"> Other:
+            <input class="mini" type="text" name="q6_duration_other" placeholder="Example: 90 minutes" />
+          </label>
+        </div>
+      </section>
+
+      <!-- Q7 -->
+      <section class="q" id="q7" data-q="7">
+        <div class="qTop">
+          <h2>Q7) How important is a safe and inclusive environment to you?</h2>
+          <div class="limit">Scale 1–5 (5 = very important)</div>
+        </div>
+
+        <div class="grid3">
+          <label class="opt"><input type="radio" name="q7_safe_inclusive" value="1"> 1</label>
+          <label class="opt"><input type="radio" name="q7_safe_inclusive" value="2"> 2</label>
+          <label class="opt"><input type="radio" name="q7_safe_inclusive" value="3"> 3</label>
+          <label class="opt"><input type="radio" name="q7_safe_inclusive" value="4"> 4</label>
+          <label class="opt"><input type="radio" name="q7_safe_inclusive" value="5"> 5</label>
+        </div>
+      </section>
+
+      <!-- Q8 -->
+      <section class="q" id="q8" data-q="8">
+        <div class="qTop">
+          <h2>Q8) Any quick comments about your “perfect” gaming lounge?</h2>
+          <div class="limit">Short answer</div>
+        </div>
+        <textarea class="big" name="q8_comments" rows="4" placeholder="Example: more tournaments, quiet zone, better snacks, strict anti-toxic rules, etc."></textarea>
+      </section>
+
+      <!-- =========================
+           PART B — MARKET RESEARCH (Q9–Q28)
+           (from ptg_market_research.txt)
+           ========================= -->
+
+      <div class="sectionTag" id="market">Part B — PTG Market Research</div>
+
+<!-- Q9 -->
+<section class="q" id="q9" data-q="9">
+  <div class="qTop">
+    <h2>Q9) Your name (or type “Anonymous” if you prefer)</h2>
+    <div class="limit">Text</div>
+  </div>
+  <input class="line" type="text" name="q9_name" placeholder="Your name or Anonymous" />
+</section>
+
+<!-- Q10 -->
+<section class="q" id="q10" data-q="10" data-optional="true">
+  <div class="qTop">
+    <h2>Q10) Age (optional)</h2>
+    <div class="limit">Text</div>
+  </div>
+  <input class="line" type="text" name="q10_age" inputmode="numeric" placeholder="Optional" />
+  <p class="hint">You can skip this if you want 👍</p>
+</section>
+
+<!-- Q11 -->
+<section class="q" id="q11" data-q="11">
+  <div class="qTop">
+    <h2>Q11) How important is a youth‑friendly environment to you?</h2>
+    <div class="limit">Scale 1–5 (5 = very important)</div>
+  </div>
+  <div class="grid3">
+    <label class="opt"><input type="radio" name="q11_youth_friendly" value="1"> 1</label>
+    <label class="opt"><input type="radio" name="q11_youth_friendly" value="2"> 2</label>
+    <label class="opt"><input type="radio" name="q11_youth_friendly" value="3"> 3</label>
+    <label class="opt"><input type="radio" name="q11_youth_friendly" value="4"> 4</label>
+    <label class="opt"><input type="radio" name="q11_youth_friendly" value="5"> 5</label>
+  </div>
+</section>
+
+<!-- Q12 -->
+<section class="q" id="q12" data-q="12">
+  <div class="qTop">
+    <h2>Q12) Would you be interested in membership packages (unlimited play / perks)?</h2>
+    <div class="limit">Pick 1</div>
+  </div>
+  <div class="grid2">
+    <label class="opt"><input type="radio" name="q12_membership_interest" value="Yes"> Yes</label>
+    <label class="opt"><input type="radio" name="q12_membership_interest" value="No"> No</label>
+    <label class="opt"><input type="radio" name="q12_membership_interest" value="Maybe"> Maybe</label>
+  </div>
+</section>
+
+<!-- Q13 -->
+<section class="q" id="q13" data-q="13">
+  <div class="qTop">
+    <h2>Q13) How much would you expect to pay for a day pass?</h2>
+    <div class="limit">Text (amount or range)</div>
+  </div>
+  <input class="line" type="text" name="q13_day_pass" placeholder="$10–$20, etc." />
+</section>
+
+<!-- Q14 -->
+<section class="q" id="q14" data-q="14">
+  <div class="qTop">
+    <h2>Q14) How much would you expect to pay per month for a membership?</h2>
+    <div class="limit">Text (amount or range)</div>
+  </div>
+  <input class="line" type="text" name="q14_monthly_membership" placeholder="$25–$50, etc." />
+</section>
+
+<!-- Q15 -->
+<section class="q" id="q15" data-q="15" data-limit="3">
+  <div class="qTop">
+    <h2>Q15) Which amenities matter most to you?</h2>
+    <div class="limit"><span class="counter" data-counter>0</span>/3 selected</div>
+  </div>
+  <div class="grid3">
+    <label class="opt"><input type="checkbox" name="q15_amenities" value="High-end equipment"> High-end equipment</label>
+    <label class="opt"><input type="checkbox" name="q15_amenities" value="Snacks/refreshments"> Snacks/refreshments</label>
+    <label class="opt"><input type="checkbox" name="q15_amenities" value="Comfortable seating"> Comfortable seating</label>
+    <label class="opt"><input type="checkbox" name="q15_amenities" value="Community events"> Community events</label>
+    <label class="opt"><input type="checkbox" name="q15_amenities" value="Wellness spaces"> Wellness spaces</label>
+    <label class="opt"><input type="checkbox" name="q15_amenities" value="Other"> Other</label>
+  </div>
+</section>
+
+<!-- Q16 -->
+<section class="q" id="q16" data-q="16">
+  <div class="qTop">
+    <h2>Q16) Would you participate in training/coaching programs to improve your skills?</h2>
+    <div class="limit">Pick 1</div>
+  </div>
+  <div class="grid2">
+    <label class="opt"><input type="radio" name="q16_coaching" value="Yes"> Yes</label>
+    <label class="opt"><input type="radio" name="q16_coaching" value="No"> No</label>
+    <label class="opt"><input type="radio" name="q16_coaching" value="Maybe"> Maybe</label>
+  </div>
+</section>
+
+<!-- Q17 -->
+<section class="q" id="q17" data-q="17">
+  <div class="qTop">
+    <h2>Q17) How important are wellness features (calm zones, mindfulness breaks) at a venue?</h2>
+    <div class="limit">Scale 1–5</div>
+  </div>
+  <div class="grid3">
+    <label class="opt"><input type="radio" name="q17_wellness" value="1"> 1</label>
+    <label class="opt"><input type="radio" name="q17_wellness" value="2"> 2</label>
+    <label class="opt"><input type="radio" name="q17_wellness" value="3"> 3</label>
+    <label class="opt"><input type="radio" name="q17_wellness" value="4"> 4</label>
+    <label class="opt"><input type="radio" name="q17_wellness" value="5"> 5</label>
+  </div>
+</section>
+
+<!-- Q18 -->
+<section class="q" id="q18" data-q="18">
+  <div class="qTop">
+    <h2>Q18) Would you like integration with online tournaments or streaming from PTG events?</h2>
+    <div class="limit">Pick 1</div>
+  </div>
+  <div class="grid2">
+    <label class="opt"><input type="radio" name="q18_streaming" value="Yes"> Yes</label>
+    <label class="opt"><input type="radio" name="q18_streaming" value="No"> No</label>
+    <label class="opt"><input type="radio" name="q18_streaming" value="Maybe"> Maybe</label>
+  </div>
+</section>
+
+<!-- Q19 -->
+<section class="q" id="q19" data-q="19">
+  <div class="qTop">
+    <h2>Q19) Do you prefer solo or team‑based gaming sessions?</h2>
+    <div class="limit">Pick 1</div>
+  </div>
+  <div class="grid2">
+    <label class="opt"><input type="radio" name="q19_solo_team" value="Solo"> Solo</label>
+    <label class="opt"><input type="radio" name="q19_solo_team" value="Team"> Team</label>
+    <label class="opt"><input type="radio" name="q19_solo_team" value="Both"> Both</label>
+  </div>
+</section>
+
+<!-- Q20 -->
+<section class="q" id="q20" data-q="20">
+  <div class="qTop">
+    <h2>Q20) Would you bring friends or family to a gaming lounge?</h2>
+    <div class="limit">Pick 1</div>
+  </div>
+  <div class="grid2">
+    <label class="opt"><input type="radio" name="q20_bring_people" value="Yes"> Yes</label>
+    <label class="opt"><input type="radio" name="q20_bring_people" value="No"> No</label>
+    <label class="opt"><input type="radio" name="q20_bring_people" value="Maybe"> Maybe</label>
+  </div>
+</section>
+
+<!-- Q21 -->
+<section class="q" id="q21" data-q="21">
+  <div class="qTop">
+    <h2>Q21) How important are PTG’s “Respect the Space” rules (no gambling, no alcohol, no soliciting, no loitering)?</h2>
+    <div class="limit">Scale 1–5 (5 = must-have)</div>
+  </div>
+  <div class="grid3">
+    <label class="opt"><input type="radio" name="q21_rules_respect_space" value="1"> 1</label>
+    <label class="opt"><input type="radio" name="q21_rules_respect_space" value="2"> 2</label>
+    <label class="opt"><input type="radio" name="q21_rules_respect_space" value="3"> 3</label>
+    <label class="opt"><input type="radio" name="q21_rules_respect_space" value="4"> 4</label>
+    <label class="opt"><input type="radio" name="q21_rules_respect_space" value="5"> 5</label>
+  </div>
+</section>
+
+<!-- Q22 -->
+<section class="q" id="q22" data-q="22">
+  <div class="qTop">
+    <h2>Q22) What factors would most influence your decision to become a regular PTG member?</h2>
+    <div class="limit">Text</div>
+  </div>
+  <input class="line" type="text" name="q22_influence" placeholder="Price, atmosphere, events, staff, location, etc." />
+</section>
+
+<!-- Q23 -->
+<section class="q" id="q23" data-q="23" data-optional="true">
+  <div class="qTop">
+    <h2>Q23) Bonus: What would make you TRUST PTG instantly?</h2>
+    <div class="limit">Optional</div>
+  </div>
+  <textarea class="big" name="q23_trust" rows="3" placeholder="Example: clear rules, respectful staff, clean setup, consistent hours, calm zone, no drama…"></textarea>
+</section>
+
+      <div class="sectionTag" id="socialsTag">Part C — Socials (Optional)</div>
+
+      <section class="q" id="q24" data-q="24" data-optional="true">
+        <div class="qTop">
+          <h2>Q24) Drop your socials (optional)</h2>
+          <div class="limit">Names or URLs</div>
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label for="twitch">Twitch</label>
+            <input id="twitch" class="line" type="text" name="social_twitch" placeholder="twitch.tv/yourname or @yourname" />
+          </div>
+
+          <div class="field">
+            <label for="youtube">YouTube</label>
+            <input id="youtube" class="line" type="text" name="social_youtube" placeholder="youtube.com/@yourname" />
+          </div>
+
+          <div class="field">
+            <label for="facebook">Facebook</label>
+            <input id="facebook" class="line" type="text" name="social_facebook" placeholder="Profile/page name or URL" />
+          </div>
+
+          <div class="field">
+            <label for="twitter">X / Twitter</label>
+            <input id="twitter" class="line" type="text" name="social_twitter" placeholder="@yourname or URL" />
+          </div>
+
+          <div class="field">
+            <label for="discord">Discord</label>
+            <input id="discord" class="line" type="text" name="social_discord" placeholder="name#1234 + invite link (if you want)" />
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" class="line" type="email" name="social_email" placeholder="you@example.com" />
+          </div>
+        </div>
+        <p class="hint">No pressure — only add what you want shared 🤝</p>
+      </section>
+
+      <!-- Actions -->
+      <section class="actions">
+        <div class="actionsLeft">
+          <button type="button" class="btn ghost" id="copyBtn">Copy Answers</button>
+          <button type="button" class="btn ghost" id="resetBtn">Reset</button>
+        </div>
+        <div class="actionsRight">
+          <button type="submit" class="btn primary" id="submitBtn">Submit 🎯</button>
+        </div>
+
+        <p class="small" id="status" role="status" aria-live="polite"></p>
+      </section>
+    </form>
+
+    <footer class="foot">
+      <div class="footInner">
+        <div class="footLeft">
+          <div class="tiny">PTG • Perfect Timing Gaming</div>
+          <div class="tiny muted">Mail-to submissions go to: <strong>ChangeTheWRLD@outlook.com</strong></div>
+        </div>
+        <div class="footRight">
+          <a class="tinyLink" href="#main">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
