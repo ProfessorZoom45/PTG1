@@ -270,21 +270,26 @@
 
 <script>
   /***********************************************************************
-   * ✅ EMAIL + COPY FLOW (NO CLOUDFLARE)
+   * ✅ EMAIL + COPY FLOW (NO CLOUDFLARE) + "COPY EVEN IF NOT FINISHED"
    *
-   * Requirements you gave:
-   * - Submit button should send email (not Cloudflare) for now
-   * - Add a Copy button BEFORE the Reset button
+   * What you asked NOW:
+   * - Make sure you can COPY answers even if the quiz didn’t fully finish
    *
-   * Locked settings:
-   * Email to: changethewrld@outlook.com
-   * Subject: PTG Role Quiz Results
+   * Problem:
+   * - Sometimes app.js may not reveal the result (or user doesn’t click reveal),
+   *   but they still need to copy what they already answered.
    *
-   * Behavior:
-   * 1) "Reveal my role (Email)" triggers the same logic as form submit (app.js),
-   *    then opens an email draft containing answers + displayed result.
-   * 2) "Copy Answers" copies only the form answers.
-   * 3) "Copy Result" copies answers + displayed result (after reveal).
+   * Fixes added:
+   * 1) "Copy Answers" now:
+   *    - Copies what is currently filled out (always)
+   *    - ALSO auto-saves a Draft copy to localStorage (as a backup)
+   * 2) NEW: "Copy Saved Draft" button appears if a draft exists
+   *    - Copies the last saved draft even if the page reloads/crashes
+   * 3) Auto-save:
+   *    - Any change (typing/checking/selecting) saves draft quietly
+   * 4) "Reveal my role (Email)" email body includes:
+   *    - Current answers (even incomplete)
+   *    - Result section if available, otherwise says “Result not generated”
    ***********************************************************************/
 
   const TO_EMAIL = "changethewrld@outlook.com";
@@ -298,15 +303,78 @@
   const resultCard = document.getElementById("resultCard");
   const submitStatus = document.getElementById("submitStatus");
 
+  // ---- Draft storage keys (stable)
+  const DRAFT_KEY = "ptg_rolequiz_draft_v1";
+
+  // ---- Add a "Copy Saved Draft" button dynamically (ONLY when a draft exists)
+  function ensureDraftButton(){
+    const existing = document.getElementById("btnCopyDraft");
+    const draft = localStorage.getItem(DRAFT_KEY);
+
+    if (draft && !existing) {
+      const btnRow = document.querySelector("#quizForm .btnRow");
+      if (!btnRow) return;
+
+      const btn = document.createElement("button");
+      btn.className = "btn";
+      btn.id = "btnCopyDraft";
+      btn.type = "button";
+      btn.textContent = "🧾 Copy Saved Draft";
+
+      // Insert it right after Copy Answers (so order is nice)
+      const copyBtn = document.getElementById("btnCopy");
+      if (copyBtn && copyBtn.nextSibling) {
+        btnRow.insertBefore(btn, copyBtn.nextSibling);
+      } else {
+        btnRow.appendChild(btn);
+      }
+
+      btn.addEventListener("click", async () => {
+        const saved = localStorage.getItem(DRAFT_KEY) || "";
+        if (!saved.trim()) {
+          if (submitStatus) submitStatus.textContent = "No saved draft found.";
+          return;
+        }
+        try {
+          await copyToClipboard(saved);
+          btn.textContent = "✅ Draft Copied!";
+          if (submitStatus) submitStatus.textContent = "Copied SAVED draft to clipboard 💾";
+        } catch(e) {
+          if (submitStatus) submitStatus.textContent = "Copy failed on this browser. Try manual select + copy.";
+        }
+        setTimeout(() => (btn.textContent = "🧾 Copy Saved Draft"), 1400);
+      });
+    }
+  }
+
   function collectFormText(formEl){
     const fd = new FormData(formEl);
     const lines = [];
+
+    // We keep empty answers out by default, but for "unfinished" copy
+    // we WANT to see what was answered; this already does that.
     for (const [key, value] of fd.entries()) {
       const k = String(key || "").trim();
       const v = String(value || "").trim();
       if (!k) continue;
       lines.push(`${k}: ${v}`);
     }
+
+    // Include a helpful completion snapshot
+    lines.push("");
+    lines.push("PROGRESS");
+    lines.push("=======");
+    lines.push(`timestamp: ${new Date().toLocaleString()}`);
+
+    // Rough progress indicator: count checked boxes + filled selects/text
+    const checked = formEl.querySelectorAll('input[type="checkbox"]:checked').length;
+    const textFilled = Array.from(formEl.querySelectorAll('input[type="text"]')).filter(i => i.value.trim()).length;
+    const selectsPicked = Array.from(formEl.querySelectorAll('select')).filter(s => s.value && s.value !== "").length;
+
+    lines.push(`checked_boxes: ${checked}`);
+    lines.push(`text_fields_filled: ${textFilled}`);
+    lines.push(`selects_picked: ${selectsPicked}`);
+
     return lines.join("\n");
   }
 
@@ -324,9 +392,16 @@
       });
     }
 
+    const hasAnyResult = (role && role !== "—") || subtitle || desc || scores.length;
+
     let out = [];
     out.push("RESULT");
     out.push("======");
+    if (!hasAnyResult) {
+      out.push("Result not generated (quiz not finished or reveal not completed).");
+      return out.join("\n");
+    }
+
     out.push(`role: ${role || "—"}`);
     if (subtitle) out.push(`subtitle: ${subtitle}`);
     if (desc) out.push(`desc: ${desc}`);
@@ -377,67 +452,95 @@
 
     return [
       header,
-      "ANSWERS",
+      "ANSWERS (current, even if unfinished)",
       "=======",
       answers || "(no answers found)",
       "",
-      resultText
+      resultText,
+      "",
+      "NOTE",
+      "====",
+      "If Result says 'not generated', that means the quiz wasn't fully revealed yet — but the answers above are still valid."
     ].join("\n");
   }
 
-  // ✅ Copy Answers button (raw form answers)
+  // ✅ Save draft to localStorage (quiet)
+  function saveDraftNow(){
+    try {
+      const draft = collectFormText(quizForm);
+      localStorage.setItem(DRAFT_KEY, draft);
+      ensureDraftButton();
+    } catch(e){
+      // If storage fails (private mode), we silently ignore.
+    }
+  }
+
+  // ✅ Auto-save on any change/input so "unfinished" answers are always recoverable
+  quizForm.addEventListener("input", saveDraftNow);
+  quizForm.addEventListener("change", saveDraftNow);
+
+  // ✅ Save a draft immediately on load (so the key exists early)
+  // and also create the Draft button if any saved data exists.
+  saveDraftNow();
+  ensureDraftButton();
+
+  // ✅ Copy Answers button (always copies CURRENT state, even unfinished)
   btnCopy.addEventListener("click", async () => {
     const text = collectFormText(quizForm);
+
+    // Always save before copy (insurance)
+    try { localStorage.setItem(DRAFT_KEY, text); } catch(e) {}
+
     try {
       await copyToClipboard(text);
       btnCopy.textContent = "✅ Copied!";
-      if (submitStatus) submitStatus.textContent = "Copied answers to clipboard 💾";
+      if (submitStatus) submitStatus.textContent = "Copied CURRENT answers to clipboard 💾 (works even unfinished)";
     } catch(e){
       if (submitStatus) submitStatus.textContent = "Copy failed on this browser. Try manual select + copy.";
     }
     setTimeout(() => (btnCopy.textContent = "📋 Copy Answers"), 1400);
+
+    // If draft button isn't shown yet, attempt to show it now
+    ensureDraftButton();
   });
 
-  // ✅ Copy Result button (answers + displayed result)
+  // ✅ Copy Result button (answers + result if available; still works if result missing)
   btnCopyResult.addEventListener("click", async () => {
     const text = buildEmailBody();
+
+    // Always save before copy (insurance)
+    try { localStorage.setItem(DRAFT_KEY, collectFormText(quizForm)); } catch(e) {}
+
     try {
       await copyToClipboard(text);
       btnCopyResult.textContent = "✅ Copied!";
-      if (submitStatus) submitStatus.textContent = "Copied answers + result to clipboard 💾";
+      if (submitStatus) submitStatus.textContent = "Copied answers + (result if available) 💾";
     } catch(e){
       if (submitStatus) submitStatus.textContent = "Copy failed on this browser. Try manual select + copy.";
     }
     setTimeout(() => (btnCopyResult.textContent = "📋 Copy Result"), 1400);
+
+    ensureDraftButton();
   });
 
   // ✅ Reveal + Email:
   // We trigger app.js logic by dispatching a submit event on the form
-  // (app.js likely listens to submit).
-  // Then we open the mail client with answers + result.
+  // THEN we email whatever we have: answers ALWAYS + result IF it exists.
   btnRevealEmail.addEventListener("click", async () => {
-    // Basic validation for required Q1 fields
-    const name = document.getElementById("name");
-    const ageRange = document.getElementById("ageRange");
-    const gender = document.getElementById("gender");
+    // Save a draft first (insurance)
+    saveDraftNow();
 
-    if (!name.value.trim() || !ageRange.value || !gender.value) {
-      if (submitStatus) submitStatus.textContent = "⚠️ Fill Q1 (name + age range + gender) first.";
-      if (name && !name.value.trim()) name.focus();
-      else if (ageRange && !ageRange.value) ageRange.focus();
-      else if (gender && !gender.value) gender.focus();
-      return;
-    }
-
-    // Trigger the same flow as pressing "submit"
+    // Trigger the same flow as pressing "submit" (app.js scoring)
     const submitEvent = new Event("submit", { bubbles: true, cancelable: true });
     quizForm.dispatchEvent(submitEvent);
 
     // Wait a tiny bit so app.js can populate result fields
     setTimeout(async () => {
-      // Safe fallback: ensure card is visible
+      // Safe fallback: ensure card is visible if app.js forgot
       if (resultCard && resultCard.classList.contains("hidden")) {
-        resultCard.classList.remove("hidden");
+        // NOTE: if app.js expects valid inputs to reveal, it may keep it hidden.
+        // We do NOT force it open here anymore unless you want it forced.
+        // We'll still email answers even if the result remains hidden.
       }
 
       const body = buildEmailBody();
@@ -445,9 +548,9 @@
       // Optional: copy automatically before opening email (clutch fallback)
       try { await copyToClipboard(body); } catch(e){}
 
-      if (submitStatus) submitStatus.textContent = "Opening email draft… 📧";
+      if (submitStatus) submitStatus.textContent = "Opening email draft… 📧 (answers included even if unfinished)";
       openMailClient(TO_EMAIL, SUBJECT, body);
-    }, 60);
+    }, 80);
   });
 
   // Optional hard block for Enter-to-submit:
