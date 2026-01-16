@@ -178,13 +178,20 @@
       <div class="hint" data-live="q9"></div>
     </fieldset>
 
+    <!-- ✅ UPDATED BUTTON ROW: Submit becomes Email action; add Copy BEFORE Reset -->
     <div class="btnRow" style="margin-top:12px;">
-      <button class="btn primary" type="submit">🎯 Reveal my role</button>
+      <!-- Was type="submit" — now email flow button -->
+      <button class="btn primary" id="btnRevealEmail" type="button">🎯 Reveal my role (Email)</button>
+
+      <!-- New copy button BEFORE reset -->
+      <button class="btn" id="btnCopy" type="button">📋 Copy Answers</button>
+
+      <!-- Reset stays last -->
       <button class="btn" type="reset">Reset</button>
     </div>
 
     <p class="small" style="margin-top:10px;">
-      GitHub Pages fallback: Email + Download always work ✅. Cloudflare Submit works after setup.
+      GitHub Pages fallback: Email + Copy always work ✅. Cloudflare Submit is disabled for now.
     </p>
   </form>
 
@@ -201,10 +208,15 @@
       <ul id="resultScores"></ul>
     </details>
 
+    <!-- ✅ UPDATED RESULT BUTTONS:
+         Keep Email + Download, replace Cloudflare Submit with Copy Result
+    -->
     <div class="btnRow" style="margin-top:12px;">
       <button class="btn" id="btnEmail" type="button">📧 Email</button>
       <button class="btn" id="btnDownload" type="button">⬇️ Download JSON</button>
-      <button class="btn green" id="btnSubmit" type="button">✅ Submit (Cloudflare)</button>
+      <button class="btn" id="btnCopyResult" type="button">📋 Copy Result</button>
+      <!-- Cloudflare Submit disabled for now -->
+      <!-- <button class="btn green" id="btnSubmit" type="button">✅ Submit (Cloudflare)</button> -->
     </div>
 
     <div id="submitStatus" class="status" style="margin-top:10px;">Ready.</div>
@@ -216,14 +228,21 @@
 <script>
   // ✅ Replace with your Worker URL AFTER deploy (example):
   // window.PTG_SUBMIT_ENDPOINT = "https://ptg-role-quiz-api.YOURNAME.workers.dev/submit";
+  // For now: intentionally blank (Cloudflare disabled)
   window.PTG_SUBMIT_ENDPOINT = "";
   // Optional: set secret if you use one in Cloudflare
   window.PTG_SUBMIT_SECRET = "";
 </script>
+
+<!-- Keep app.js (it calculates role + fills result card).
+     We are NOT removing it; we are using it to produce the result,
+     then emailing instead of Cloudflare. -->
 <script src="./app.js"></script>
 
 <script>
-  // Music toggle (iOS-safe)
+  /***********************************************************************
+   * MUSIC TOGGLE (UNCHANGED)
+   ***********************************************************************/
   const musicToggle = document.getElementById("musicToggle");
   const bgMusic = document.getElementById("bgMusic");
   let muted = localStorage.getItem("ptg_rolequiz_muted");
@@ -248,5 +267,195 @@
     syncMusic();
   });
 </script>
+
+<script>
+  /***********************************************************************
+   * ✅ EMAIL + COPY FLOW (NO CLOUDFLARE)
+   *
+   * Requirements you gave:
+   * - Submit button should send email (not Cloudflare) for now
+   * - Add a Copy button BEFORE the Reset button
+   *
+   * Locked settings:
+   * Email to: changethewrld@outlook.com
+   * Subject: PTG Role Quiz Results
+   *
+   * Behavior:
+   * 1) "Reveal my role (Email)" triggers the same logic as form submit (app.js),
+   *    then opens an email draft containing answers + displayed result.
+   * 2) "Copy Answers" copies only the form answers.
+   * 3) "Copy Result" copies answers + displayed result (after reveal).
+   ***********************************************************************/
+
+  const TO_EMAIL = "changethewrld@outlook.com";
+  const SUBJECT  = "PTG Role Quiz Results";
+
+  const quizForm = document.getElementById("quizForm");
+  const btnRevealEmail = document.getElementById("btnRevealEmail");
+  const btnCopy = document.getElementById("btnCopy");
+  const btnCopyResult = document.getElementById("btnCopyResult");
+
+  const resultCard = document.getElementById("resultCard");
+  const submitStatus = document.getElementById("submitStatus");
+
+  function collectFormText(formEl){
+    const fd = new FormData(formEl);
+    const lines = [];
+    for (const [key, value] of fd.entries()) {
+      const k = String(key || "").trim();
+      const v = String(value || "").trim();
+      if (!k) continue;
+      lines.push(`${k}: ${v}`);
+    }
+    return lines.join("\n");
+  }
+
+  function collectDisplayedResultText(){
+    const role = (document.getElementById("resultRole")?.textContent || "").trim();
+    const subtitle = (document.getElementById("resultSubtitle")?.textContent || "").trim();
+    const desc = (document.getElementById("resultDesc")?.textContent || "").trim();
+
+    const scoresEl = document.getElementById("resultScores");
+    const scores = [];
+    if (scoresEl) {
+      scoresEl.querySelectorAll("li").forEach(li => {
+        const t = (li.textContent || "").trim();
+        if (t) scores.push(t);
+      });
+    }
+
+    let out = [];
+    out.push("RESULT");
+    out.push("======");
+    out.push(`role: ${role || "—"}`);
+    if (subtitle) out.push(`subtitle: ${subtitle}`);
+    if (desc) out.push(`desc: ${desc}`);
+    if (scores.length) {
+      out.push("");
+      out.push("SCORES");
+      out.push("======");
+      scores.forEach(s => out.push(`- ${s}`));
+    }
+    return out.join("\n");
+  }
+
+  async function copyToClipboard(text){
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    ta.style.top = "-9999px";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+  }
+
+  function openMailClient(to, subject, body){
+    const mailto =
+      `mailto:${encodeURIComponent(to)}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  }
+
+  function buildEmailBody(){
+    const answers = collectFormText(quizForm);
+    const resultText = collectDisplayedResultText();
+
+    const header = [
+      "PTG ROLE QUIZ",
+      "===========",
+      `timestamp: ${new Date().toLocaleString()}`,
+      ""
+    ].join("\n");
+
+    return [
+      header,
+      "ANSWERS",
+      "=======",
+      answers || "(no answers found)",
+      "",
+      resultText
+    ].join("\n");
+  }
+
+  // ✅ Copy Answers button (raw form answers)
+  btnCopy.addEventListener("click", async () => {
+    const text = collectFormText(quizForm);
+    try {
+      await copyToClipboard(text);
+      btnCopy.textContent = "✅ Copied!";
+      if (submitStatus) submitStatus.textContent = "Copied answers to clipboard 💾";
+    } catch(e){
+      if (submitStatus) submitStatus.textContent = "Copy failed on this browser. Try manual select + copy.";
+    }
+    setTimeout(() => (btnCopy.textContent = "📋 Copy Answers"), 1400);
+  });
+
+  // ✅ Copy Result button (answers + displayed result)
+  btnCopyResult.addEventListener("click", async () => {
+    const text = buildEmailBody();
+    try {
+      await copyToClipboard(text);
+      btnCopyResult.textContent = "✅ Copied!";
+      if (submitStatus) submitStatus.textContent = "Copied answers + result to clipboard 💾";
+    } catch(e){
+      if (submitStatus) submitStatus.textContent = "Copy failed on this browser. Try manual select + copy.";
+    }
+    setTimeout(() => (btnCopyResult.textContent = "📋 Copy Result"), 1400);
+  });
+
+  // ✅ Reveal + Email:
+  // We trigger app.js logic by dispatching a submit event on the form
+  // (app.js likely listens to submit).
+  // Then we open the mail client with answers + result.
+  btnRevealEmail.addEventListener("click", async () => {
+    // Basic validation for required Q1 fields
+    const name = document.getElementById("name");
+    const ageRange = document.getElementById("ageRange");
+    const gender = document.getElementById("gender");
+
+    if (!name.value.trim() || !ageRange.value || !gender.value) {
+      if (submitStatus) submitStatus.textContent = "⚠️ Fill Q1 (name + age range + gender) first.";
+      if (name && !name.value.trim()) name.focus();
+      else if (ageRange && !ageRange.value) ageRange.focus();
+      else if (gender && !gender.value) gender.focus();
+      return;
+    }
+
+    // Trigger the same flow as pressing "submit"
+    const submitEvent = new Event("submit", { bubbles: true, cancelable: true });
+    quizForm.dispatchEvent(submitEvent);
+
+    // Wait a tiny bit so app.js can populate result fields
+    setTimeout(async () => {
+      // Safe fallback: ensure card is visible
+      if (resultCard && resultCard.classList.contains("hidden")) {
+        resultCard.classList.remove("hidden");
+      }
+
+      const body = buildEmailBody();
+
+      // Optional: copy automatically before opening email (clutch fallback)
+      try { await copyToClipboard(body); } catch(e){}
+
+      if (submitStatus) submitStatus.textContent = "Opening email draft… 📧";
+      openMailClient(TO_EMAIL, SUBJECT, body);
+    }, 60);
+  });
+
+  // Optional hard block for Enter-to-submit:
+  // If you want to prevent any form submit outside our button, uncomment below.
+  //
+  // quizForm.addEventListener("submit", (e) => e.preventDefault());
+  //
+</script>
+
 </body>
 </html>
