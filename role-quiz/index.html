@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PTG • Role Quiz</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="PTG home">
+        <img src="../assets/img/ptg_logo.png" alt="PTG logo" class="logo">
+        <div class="brand-name">
+          <h1>Perfect Timing Gaming</h1>
+          <small>Protect • Trust • Growth</small>
+        </div>
+      </a>
+      <nav class="primary-nav" aria-label="Primary">
+        <a href="../index.html">Home</a>
+        <a href="../ourstory.html">Our Story</a>
+        <a href="../mostory.html">Mo’s Story</a>
+        <a href="../angelsstory.html">Angel’s Story</a>
+        <a href="../gaming-survey/index.html">Gaming Survey</a>
+        <a href="index.html" aria-current="page">Role Quiz</a>
+      </nav>
+      <div class="audio-wrapper">
+        <img id="musicCover" class="cover-art" src="../assets/img/music5_cover.png" alt="Music cover art">
+        <audio id="siteAudio" src="../assets/audio/music5.mp3" controls preload="metadata" loop></audio>
+      </div>
+    </div>
+  </header>
+  <main class="site-main">
+    <section class="card">
+      <div class="btnRow" style="justify-content:space-between;">
+        <div>
+          <div class="pixel" style="font-size:14px;">PTG Role Quiz 🎯</div>
+          <div class="small">Most questions: <strong>pick 1–3</strong> ✅ (you’ll see it on each line).</div>
+        </div>
+        <div class="btnRow">
+          <a class="btn" href="../index.html">🏠 Home</a>
+        </div>
+      </div>
+    </section>
+    <form id="quizForm" class="card" novalidate>
+      <h1 class="pixel" style="margin:0 0 10px 0;">Find your lane</h1>
+      <!-- Basic info -->
+      <fieldset>
+        <legend><span class="qNum">Q1</span> Basics</legend>
+        <div class="row3" style="margin-top:10px;">
+          <div>
+            <label class="small" for="name">First name</label>
+            <input id="name" name="name" type="text" placeholder="Example: Jordan" required />
+          </div>
+          <div>
+            <label class="small" for="ageRange">Age range</label>
+            <select id="ageRange" name="ageRange" required>
+              <option value="" selected disabled>Pick one…</option>
+              <option value="u13">Under 13</option>
+              <option value="13-15">13–15</option>
+              <option value="16-17">16–17</option>
+              <option value="18-24">18–24</option>
+              <option value="25-34">25–34</option>
+              <option value="35plus">35+</option>
+            </select>
+          </div>
+          <div>
+            <label class="small" for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="" selected disabled>Pick one…</option>
+              <option value="M">M</option>
+              <option value="F">F</option>
+              <option value="NA">N/A</option>
+            </select>
+          </div>
+        </div>
+        <div class="hint">No last names. Keep it simple ✅</div>
+      </fieldset>
+      <!-- Several pick‑1‑3 questions -->
+      <fieldset data-min="1" data-max="3">
+        <legend><span class="qNum">Q2</span> What sounds most like you? <span class="small">(pick 1–3)</span></legend>
+        <label class="opt"><input type="checkbox" name="q2" value="CEO"> Big calls + protect the mission.</label>
+        <label class="opt"><input type="checkbox" name="q2" value="GM"> Run the day + keep the floor smooth.</label>
+        <label class="opt"><input type="checkbox" name="q2" value="COMM"> Events + people + community vibe.</label>
+        <label class="opt"><input type="checkbox" name="q2" value="TECH"> Tech + systems + making it work.</label>
+        <label class="opt"><input type="checkbox" name="q2" value="CASH"> Front desk + check-in/out + fairness.</label>
+        <label class="opt"><input type="checkbox" name="q2" value="MEMBER"> Safe fun place + support the culture.</label>
+        <div class="hint" data-live="q2"></div>
+      </fieldset>
+      <fieldset data-min="1" data-max="3">
+        <legend><span class="qNum">Q3</span> If conflict pops off, you… <span class="small">(pick 1–3)</span></legend>
+        <label class="opt"><input type="checkbox" name="q3" value="OPS"> Step in, calm it, set the boundary.</label>
+        <label class="opt"><input type="checkbox" name="q3" value="CASH"> Keep it polite and moving.</label>
+        <label class="opt"><input type="checkbox" name="q3" value="TECH"> Fix the system so it stops repeating.</label>
+        <label class="opt"><input type="checkbox" name="q3" value="COMM"> Reset the vibe + reconnect people.</label>
+        <label class="opt"><input type="checkbox" name="q3" value="GM"> Handle it in real time like a floor lead.</label>
+        <label class="opt"><input type="checkbox" name="q3" value="MEMBER"> I avoid drama — I want peace.</label>
+        <div class="hint" data-live="q3"></div>
+      </fieldset>
+      <!-- Additional pick‑1‑3 questions can be added here as needed -->
+      <div class="btnRow" style="margin-top:12px;">
+        <button class="btn primary" id="btnRevealEmail" type="button">🎯 Reveal my role (Email)</button>
+        <button class="btn" id="btnCopy" type="button">📋 Copy Answers</button>
+        <button class="btn" type="reset">Reset</button>
+      </div>
+      <p class="small" style="margin-top:10px;">Email + Copy always work ✅. Cloudflare Submit is disabled for now.</p>
+    </form>
+    <section id="resultCard" class="card hidden" aria-live="polite" style="margin-top:20px;">
+      <h2 class="pixel" style="margin:0 0 10px 0;">Your result</h2>
+      <div class="card" style="margin:0 0 12px 0;">
+        <div style="font-weight:1000;font-size:26px;" id="resultRole">—</div>
+        <div class="small" id="resultSubtitle"></div>
+        <p id="resultDesc" style="margin:8px 0 0 0;"></p>
+      </div>
+      <details class="card" style="margin:0;">
+        <summary style="font-weight:1000;cursor:pointer;">Show score breakdown</summary>
+        <ul id="resultScores"></ul>
+      </details>
+      <div class="btnRow" style="margin-top:12px;">
+        <button class="btn" id="btnEmail" type="button">📧 Email</button>
+        <button class="btn" id="btnDownload" type="button">⬇️ Download JSON</button>
+        <button class="btn" id="btnCopyResult" type="button">📋 Copy Result</button>
+      </div>
+      <div id="submitStatus" class="status" style="margin-top:10px;">Ready.</div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Perfect Timing Gaming. All rights reserved.</p>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="../assets/js/coverart.js"></script>
+  <script>
+    PTGCoverArt.setFromMp3({ mp3Url:'../assets/audio/music5.mp3', imgId:'musicCover' });
+  </script>
+  <script src="./app.js"></script>
+</body>
+</html>
